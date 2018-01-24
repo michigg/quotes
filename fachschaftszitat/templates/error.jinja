@@ -1,0 +1,20 @@
+{% extends 'base.jinja' %}
+{% block headline %}
+    <header class="">
+        <h1 class="text-center mb-0" style="font-size: 20px">WIAI Zitate</h1>
+        <p class="text-center">Zitat anlegen</p>
+    </header>
+{% endblock %}
+{% block content %}
+    <div class="container">
+        <div class="row text-dark">
+            <div class="col-12 bg-white text-center">
+                <p class="h3 text-xl-center">Error</p>
+                <p class="h1 text-xl-center text-danger">404</p>
+                <p>Das Formular konnte nicht gespeichert werden!</p>
+                <p>Bitte überprüfe nochmals deine Eingaben oder benachrichtige deinen Admin.</p>
+                <a href="{% url 'home' %}" class="btn-link">Zurück zur Übersicht</a>
+            </div>
+        </div>
+    </div>
+{% endblock %}

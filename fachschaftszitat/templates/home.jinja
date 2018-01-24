@@ -1,0 +1,64 @@
+{% extends 'base.jinja' %}
+{% block headline %}
+    <header class="">
+        <h1 class="text-center mb-0" style="font-size: 20px">WIAI Zitate</h1>
+        <p class="text-center">WIAI Original</p>
+    </header>
+{% endblock %}
+{% block content %}
+    <div class="container">
+        <div class="row text-dark mb-4">
+            <div class="col-6 bg-white p-2">
+                <h2>Neue Zitate hinzufügen</h2>
+                <form method="POST" action="{% url 'register_quote' %}">
+                    {% csrf_token %}
+                    {{ quoteform.as_p }}
+                    <input type="submit" value="Save"/>
+                </form>
+            </div>
+            <div class="col-6 bg-white p-2">
+                <h2>Neuen Autor hinzufügen</h2>
+                <form method="POST" action="{% url 'register_author' %}">
+                    {% csrf_token %}
+                    {{ authorform.as_p }}
+                    <input type="submit" value="Save"/>
+                </form>
+            </div>
+        </div>
+        <div class="row text-dark mb-4">
+
+        </div>
+        <div class="row text-dark">
+            <div class="col-12 bg-white">
+                <h2>Zitate</h2>
+                <div class="row ">
+                    <div class="col-6 col-xs-6 col-sm-4 col-md-3 col-lg-2 col-xl-2">
+                        <strong>Zeitstempel</strong>
+                    </div>
+                    <div class="col-6 col-xs-6 col-sm-4 col-md-3 col-lg-2 col-xl-2">
+                        <strong>Autoren</strong>
+                    </div>
+                    <div class="col-12 col-xs-12 col-sm-4 col-md-6 col-lg-6 col-xl-8">
+                        <strong>Zitat</strong>
+                    </div>
+                </div>
+                <hr/>
+                <hr/>
+                {% for quote in quotes %}
+                    <div class="row">
+                        <div class="col-6 col-xs-6 col-sm-4 col-md-3 col-lg-2 col-xl-2">
+                            {{ quote.timestamp }}
+                        </div>
+                        <div class="col-6 col-xs-6 col-sm-4 col-md-3 col-lg-2 col-xl-2">
+                            {% for author in quote.authors.all %}{{ author.name }} {% endfor %}
+                        </div>
+                        <div class="col-12 col-xs-12 col-sm-4 col-md-6 col-lg-6 col-xl-8">
+                            {{ quote.quote }}
+                        </div>
+                    </div>
+                    <hr/>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+{% endblock %}
