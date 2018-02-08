@@ -24,7 +24,7 @@ SECRET_KEY = 'j%g1ne@05oxjue6itv@177g9$^sc096oe(ee4)s#3*_z5dxr_v'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['zitate.wiai.de']
 
 # Application definition
 
@@ -74,7 +74,7 @@ WSGI_APPLICATION = 'core.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        'NAME': os.path.join('/db', 'db.sqlite3'),
     }
 }
 
