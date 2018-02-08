@@ -1,4 +1,5 @@
 {% extends 'base.jinja' %}
+{% load static %}
 {% block headline %}
     <header class="">
         <h1 class="text-center mb-0" style="font-size: 20px">WIAI Zitate</h1>
@@ -9,9 +10,11 @@
     <div class="container">
         <div class="row text-dark">
             <div class="col-12 bg-white text-center">
+                <p class="h1 text-xl-center text-success">Krass!</p>
                 <p class="h3 text-xl-center">Success</p>
-                <p class="h1 text-xl-center text-success">200</p>
                 <p>Das Formular wurde erfolgreich gespeichert!</p>
+                <video src="{% static 'images/dumbledore.mp4' %}" loop autoplay></video>
+                <br/>
                 <a class="btn-link" href="{% url 'home' %}">Zurück zur Übersicht</a>
             </div>
         </div>
