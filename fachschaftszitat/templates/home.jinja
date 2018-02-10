@@ -13,7 +13,7 @@
                 <form method="POST" action="{% url 'register_quote' %}">
                     {% csrf_token %}
                     <p><label for="id_quote">Quote:</label>
-                        <input type="text" name="quote" maxlength="1024" required id="id_quote"/>
+                        <textarea class="form-control"  name="quote" rows="5" maxlength="1024" id="id_quote"></textarea>
                     </p>
                     <p><label for="id_timestamp">Timestamp:</label>
                         <input type="date" name="timestamp" value="{{ today_date|date:'Y-m-d' }}" required
