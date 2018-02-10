@@ -6,10 +6,10 @@ from datetime import datetime
 
 # Create your views here.
 def home(request):
-    quotes = Quote.objects.all()
+    quotes = Quote.objects.all().order_by('-timestamp')
     quote_form = QuoteForm()
     author_form = AuthorsForm()
-    authors = Author.objects.all()
+    authors = Author.objects.all().order_by('name')
     today_date = datetime.today()
     return render(request, 'home.jinja',
                   {'quotes': quotes, 'quoteform': quote_form, 'authorform': author_form, 'authors': authors,
