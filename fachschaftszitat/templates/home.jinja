@@ -12,7 +12,20 @@
                 <h2>Neue Zitate hinzufügen</h2>
                 <form method="POST" action="{% url 'register_quote' %}">
                     {% csrf_token %}
-                    {{ quoteform.as_p }}
+                    <p><label for="id_quote">Quote:</label>
+                        <input type="text" name="quote" maxlength="1024" required id="id_quote"/>
+                    </p>
+                    <p><label for="id_timestamp">Timestamp:</label>
+                        <input type="date" name="timestamp" value="{{ today_date|date:'Y-m-d' }}" required
+                               id="id_timestamp"/>
+                    </p>
+                    <p><label for="id_authors">Quelle:</label>
+                        <select name="authors" required id="id_authors" multiple="multiple">
+                            {% for author in authors %}
+                                <option value="{{ author.id }}">{{ author.name }}</option>
+                            {% endfor %}
+                        </select>
+                    </p>
                     <input type="submit" value="Save"/>
                 </form>
             </div>
@@ -25,12 +38,12 @@
                 </form>
             </div>
         </div>
-        <div class="row text-dark mb-4">
-
-        </div>
         <div class="row text-dark">
             <div class="col-12 bg-white">
                 <h2>Zitate</h2>
+                <p>Search: <input type="text" id="search" autofocus/>
+                    <span id="reset">✕</span>
+                </p>
                 <div class="row">
                     <div class="col-6 col-xs-6 col-sm-4 col-md-3 col-lg-2 col-xl-2">
                         <strong>Zeitstempel</strong>
@@ -45,18 +58,17 @@
                 <hr/>
                 <hr/>
                 {% for quote in quotes %}
-                    <div class="row">
-                        <div class="col-6 col-xs-6 col-sm-4 col-md-3 col-lg-2 col-xl-2">
+                    <div class="quote row">
+                        <div class="quote-timestap col-6 col-xs-6 col-sm-4 col-md-3 col-lg-2 col-xl-2">
                             {{ quote.timestamp }}
                         </div>
-                        <div class="col-6 col-xs-6 col-sm-4 col-md-3 col-lg-2 col-xl-2">
+                        <div class="quote-author col-6 col-xs-6 col-sm-4 col-md-3 col-lg-2 col-xl-2">
                             {% for author in quote.authors.all %}{{ author.name }} {% endfor %}
                         </div>
-                        <div class="col-12 col-xs-12 col-sm-4 col-md-6 col-lg-6 col-xl-8">
+                        <div class="quote-quote col-12 col-xs-12 col-sm-4 col-md-6 col-lg-6 col-xl-8">
                             {{ quote.quote }}
                         </div>
                     </div>
-                    <hr/>
                 {% endfor %}
             </div>
         </div>
