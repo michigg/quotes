@@ -1,7 +1,7 @@
 from django.shortcuts import render
-from fachschaftszitat.models import Quote
+from fachschaftszitat.models import Quote, Author
 from fachschaftszitat.forms import QuoteForm, AuthorsForm
-from django.http.response import HttpResponse, HttpResponseRedirect
+from datetime import datetime
 
 
 # Create your views here.
@@ -9,7 +9,11 @@ def home(request):
     quotes = Quote.objects.all()
     quote_form = QuoteForm()
     author_form = AuthorsForm()
-    return render(request, 'home.jinja', {'quotes': quotes, 'quoteform': quote_form, 'authorform': author_form})
+    authors = Author.objects.all()
+    today_date = datetime.today()
+    return render(request, 'home.jinja',
+                  {'quotes': quotes, 'quoteform': quote_form, 'authorform': author_form, 'authors': authors,
+                   'today_date': today_date})
 
 
 def registration_quote(request):
