@@ -5,14 +5,23 @@ MAX_AUTHOR_LENGTH = 32
 
 
 # Create your models here.
-class Quote(models.Model):
+class Statement(models.Model):
     id = models.AutoField(primary_key=True)
-    quote = models.CharField(max_length=MAX_QUOTE_LENGTH, unique=True, null=False, blank=False)
-    timestamp = models.DateField(null=False, blank=False)
-    authors = models.ManyToManyField('Author', null=False, blank=False)
+    text = models.CharField(max_length=MAX_QUOTE_LENGTH)
+    order_id = models.PositiveIntegerField()
+    author = models.ForeignKey('Author', on_delete=models.SET_NULL, blank=True, null=True)
 
     def __str__(self):
-        return self.quote
+        return f'{self.author.name} - {self.text}'
+
+
+class Quote(models.Model):
+    id = models.AutoField(primary_key=True)
+    timestamp = models.DateField(null=False, blank=False)
+    statements = models.ManyToManyField('Statement', null=False, blank=False)
+
+    def __str__(self):
+        return f'{self.id}'
 
 
 class Author(models.Model):

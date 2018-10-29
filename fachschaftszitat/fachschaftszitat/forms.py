@@ -8,7 +8,7 @@ class QuoteForm(forms.ModelForm):
 
     class Meta:
         model = Quote
-        fields = ['quote', 'timestamp', 'authors']
+        fields = ['timestamp', 'statements']
 
 
 class AuthorsForm(forms.ModelForm):
