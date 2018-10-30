@@ -30,7 +30,7 @@ function searchFilter(searchfield, itemSelector, unHideStyle) {
     });
 
     items.forEach(function (item) {
-        var quote = item.getElementsByClassName('quote-quote')[0].innerHTML;
+        var quote = item.getElementsByClassName('quote-statement')[0].innerHTML;
         var originator = item.getElementsByClassName('quote-author')[0].innerHTML;
 
         if (!quote.toLowerCase().includes(searchfield.value.toLowerCase()) && !originator.toLowerCase().includes(searchfield.value.toLowerCase())) {
