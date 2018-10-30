@@ -9,23 +9,21 @@
     <div class="container">
         <div class="row text-dark mb-4">
             <div class="col-6 bg-white p-2">
-                <h2>Neue Zitate hinzufügen</h2>
+                <h2>Neues Zitat hinzufügen</h2>
                 <form method="POST" action="{% url 'register_quote' %}">
                     {% csrf_token %}
-                    <p><label for="id_quote">Quote:</label>
-                        <textarea class="form-control"  name="quote" rows="5" maxlength="1024" id="id_quote"></textarea>
-                    </p>
-                    <p><label for="id_timestamp">Timestamp:</label>
-                        <input type="date" name="timestamp" value="{{ today_date|date:'Y-m-d' }}" required
-                               id="id_timestamp"/>
-                    </p>
-                    <p><label for="id_authors">Quelle:</label>
-                        <select name="authors" required id="id_authors" multiple="multiple">
-                            {% for author in authors %}
-                                <option value="{{ author.id }}">{{ author.name }}</option>
+                    <input type="date" name="timestamp" value="{{ today_date|date:'Y-m-d'}}" required id="id_timestamp">
+
+                    {{ statement_formset.management_form }}
+                    {% for form in statement_formset %}
+                        <div class="form-row">
+                            {% for field in form %}
+                                {{field}}
                             {% endfor %}
-                        </select>
-                    </p>
+                            <button class="btn btn-success add-form-row">+</button>
+                        </div>
+                    {% endfor %}
+                    <br/>
                     <input type="submit" value="Save"/>
                 </form>
             </div>

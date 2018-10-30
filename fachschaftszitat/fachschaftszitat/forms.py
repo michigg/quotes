@@ -1,6 +1,13 @@
 from django import forms
-from fachschaftszitat.models import Quote, Author
+from fachschaftszitat.models import Statement, Quote, Author
+from django.forms import modelformset_factory
 import datetime
+
+
+class StatementForm(forms.ModelForm):
+    class Meta:
+        model = Statement
+        fields = ['author', 'text']
 
 
 class QuoteForm(forms.ModelForm):
@@ -8,8 +15,14 @@ class QuoteForm(forms.ModelForm):
 
     class Meta:
         model = Quote
-        fields = ['timestamp', 'statements']
+        fields = ['timestamp']
 
+
+StatementFormset = modelformset_factory(
+    Statement,
+    fields=('author', 'text'),
+    extra=1
+)
 
 class AuthorsForm(forms.ModelForm):
     class Meta:
