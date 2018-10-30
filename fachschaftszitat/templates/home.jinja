@@ -12,13 +12,14 @@
                 <h2>Neues Zitat hinzufügen</h2>
                 <form method="POST" action="{% url 'register_quote' %}">
                     {% csrf_token %}
-                    <input type="date" name="timestamp" value="{{ today_date|date:'Y-m-d'}}" required id="id_timestamp">
+                    <input type="date" name="timestamp" value="{{ today_date|date:'Y-m-d' }}" required
+                           id="id_timestamp">
 
                     {{ statement_formset.management_form }}
                     {% for form in statement_formset %}
                         <div class="form-row">
                             {% for field in form %}
-                                {{field}}
+                                {{ field }}
                             {% endfor %}
                             <button class="btn btn-success add-form-row">+</button>
                         </div>
@@ -60,15 +61,22 @@
                         <div class="quote-timestap col-6 col-xs-6 col-sm-4 col-md-3 col-lg-2 col-xl-2">
                             {{ quote.timestamp }}
                         </div>
-                        <div class="quote-author col-6 col-xs-6 col-sm-4 col-md-3 col-lg-2 col-xl-2">
-                            {% for author in quote.authors.all %}{{ author.name }} {% endfor %}
-                        </div>
-                        <div class="quote-quote col-12 col-xs-12 col-sm-4 col-md-6 col-lg-6 col-xl-8">
-                            {{ quote.quote }}
+                        <div class="quote-author col-6 col-xs-6 col-sm-8 col-md-9 col-lg-10 col-xl-10">
+                            {% for statement in quote.statements.all %}
+                                <div class="row">
+                                    <div class="col-6 col-xs-6 col-sm-4 col-md-3 col-lg-2 col-xl-2">
+                                        {{ statement.author.name }}
+                                    </div>
+                                    <div class="col-6 col-xs-6 col-sm-8 col-md-9 col-lg-10 col-xl-10">
+                                        {{ statement.text }}
+                                    </div>
+                                </div>
+                            {% endfor %}
                         </div>
                     </div>
+                    <hr/>
                 {% endfor %}
-            </div>
         </div>
+    </div>
     </div>
 {% endblock %}
