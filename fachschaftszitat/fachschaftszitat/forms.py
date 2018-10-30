@@ -24,6 +24,7 @@ StatementFormset = modelformset_factory(
     extra=1
 )
 
+
 class AuthorsForm(forms.ModelForm):
     class Meta:
         model = Author

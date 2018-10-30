@@ -12,21 +12,21 @@ ready(function () {
     var searchfield = document.querySelector("#search");
     searchfield.focus();
 
-    searchFilter(searchfield, ".quotes-quotes", "block");
+    searchFilter(searchfield, ".quotes-quotes");
 
     var reset = document.querySelector("#reset");
 
     searchfield.addEventListener('input', function (evt) {
-        searchFilter(this, '.quote', 'flex');
+        searchFilter(this, '.quote');
     });
 
     reset.addEventListener("click", resetSearch, false);
 });
 
-function searchFilter(searchfield, itemSelector, unHideStyle) {
+function searchFilter(searchfield, itemSelector) {
     var items = document.querySelectorAll(itemSelector);
     items.forEach(function (item) {
-        item.style.display = unHideStyle;
+        item.style.display = item.dataset.displayTypeBackup;
     });
 
     items.forEach(function (item) {
@@ -34,24 +34,26 @@ function searchFilter(searchfield, itemSelector, unHideStyle) {
         var originator = item.getElementsByClassName('quote-author')[0].innerHTML;
 
         if (!quote.toLowerCase().includes(searchfield.value.toLowerCase()) && !originator.toLowerCase().includes(searchfield.value.toLowerCase())) {
+            item.dataset.displayTypeBackup = item.style.display
             item.style.display = "none";
         }
     });
 }
 
-
 function resetSearch() {
     var searchfield = document.querySelector("#search");
-    var buttons = document.querySelectorAll(".quote");
+    var quotes = document.querySelectorAll(".quote");
     searchfield.blur();
     searchfield.value = "";
 
-    buttons.forEach(function (item) {
-        item.style.display = "block";
+    quotes.forEach(function (item) {
+        item.style.display = item.dataset.displayTypeBackup;
     });
 
     searchfield.focus();
 }
+
+/* code for adding/removing additional inputs */
 
 function updateElementIndex(el, prefix, ndx) {
     var id_regex = new RegExp('(' + prefix + '-\\d+)');
@@ -75,6 +77,7 @@ function cloneMore(selector, prefix) {
     conditionRow.find('.btn.add-form-row')
     .removeClass('btn-success').addClass('btn-danger')
     .removeClass('add-form-row').addClass('remove-form-row')
+        .attr('title', "Autor entfernen")
     .html('<span aria-hidden="true">-</span>');
     return false;
 }
