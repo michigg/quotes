@@ -1,5 +1,5 @@
 from django.templatetags.static import static
-from rest_framework import views, status
+from rest_framework import views, status, generics
 from rest_framework.decorators import permission_classes
 from rest_framework.permissions import AllowAny
 from rest_framework.response import Response
@@ -18,3 +18,7 @@ class ApiGetLatestQuote(views.APIView):
         results = QuoteSerializer(Quote.objects.last(), many=False).data
         return Response(results, status=status.HTTP_200_OK)
 
+
+class ApiGetQuotes(generics.ListAPIView):
+    queryset = Quote.objects.all()
+    serializer_class = QuoteSerializer
