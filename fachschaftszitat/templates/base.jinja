@@ -8,6 +8,9 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <title>Fachschaftszitate</title>
+    <link rel="icon"
+          type="image/png"
+          href="{% static 'images/logo.png' %}">
     <meta name="author" content="Michael Götz"/>
     <script src="{% static 'libs/jquery-3.3.1.min.js' %}"></script>
     <script src="{% static 'js/main.js' %}"></script>
@@ -23,12 +26,14 @@
 {# ===== Body ===== #}
 <body>
 {% block body %}
+    <nav class="navbar sticky-top navbar-light bg-light">
+        <a class="navbar-brand" href="#">
+            <img src="{% static 'images/logo.png' %}" width="30" height="30"
+                 class="d-inline-block align-top" alt="">
+            WIAI Zitate
+        </a><small class="text-muted">a WIAI Original</small>
+    </nav>
     <div class="container-fluid">
-        <div class="row">
-            <div class="col-12 pt-2">
-                {% block headline %}{% endblock %}
-            </div>
-        </div>
         <div class="row">{% block bottom_nav %}{% endblock %}</div>
         <div class="test row bg-dark text-white">
             {% block content %}{% endblock %}
@@ -37,7 +42,7 @@
         {% block footer %}
             <footer>
                 <div class="row text-center bg-dark text-white pt-3 pb-2">
-                     <div class="col-5">
+                    <div class="col-5">
                         <p class="text-center mb-0"><a href="#">Impressum</a></p>
                     </div>
                     <div class="col-7">
