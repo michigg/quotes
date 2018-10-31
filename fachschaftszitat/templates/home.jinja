@@ -13,7 +13,8 @@
                     <h2>Neues Zitat hinzufügen</h2>
                     <form method="POST" action="{% url 'register_quote' %}">
                         {% csrf_token %}
-                        <input class="mb-2 w-100" type="date" name="timestamp" value="{{ today_date|date:'Y-m-d' }}" required
+                        <input class="mb-2 w-100" type="date" name="timestamp" value="{{ today_date|date:'Y-m-d' }}"
+                               required
                                id="id_timestamp">
 
                         {{ statement_formset.management_form }}
@@ -22,11 +23,12 @@
                                 <div class="form-group form-inline">
                                     <select class="custom-select" name="form-0-author" id="id_form-0-author" required>
                                         <option value="" selected>---------</option>
-                                        <option value="1">Peter</option>
-                                        <option value="2">Hansi</option>
-                                        <option value="3">Lol</option>
+                                        {% for author in authors %}
+                                            <option value="{{ author.id }}">{{ author.name }}</option>
+                                        {% endfor %}
                                     </select>
-                                    <input class="form-control" type="text" name="form-0-text" maxlength="1024" id="id_form-0-text"
+                                    <input class="form-control" type="text" name="form-0-text" maxlength="1024"
+                                           id="id_form-0-text"
                                            required/>
 
                                     <input type="hidden" name="form-0-id" id="id_form-0-id"/>
@@ -52,7 +54,7 @@
                 </div>
             </div>
         </div>
-        <div class="row text-dark">
+        <div class="row text-dark mb-5">
             <div class="col-12 bg-white p-3">
                 <h2>Zitate</h2>
                 <p>Suche: <input type="text" id="search" autofocus/>

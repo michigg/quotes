@@ -16,6 +16,7 @@
     {#    <link rel="stylesheet" href="{% static 'libs/font-awesome-4.7.0/css/font-awesome.css' %}">#}
     <link rel="stylesheet" href="{% static 'libs/bootstrap-4.0.0-beta-dist/css/bootstrap.css' %}">
     <link rel="stylesheet" href="{% static 'home/form.css' %}">
+    <link rel="stylesheet" href="{% static 'home/main.css' %}">
     {% block css_extra %}{% endblock %}
 </head>
 
@@ -33,25 +34,14 @@
             {% block content %}{% endblock %}
         </div>
 
-        {% block test %}
-            <div class="row text-center bg-warning pb-2 pl-3 pr-3" style="font-size: 12px !important;">
-                <div class="col-12 text-center">
-                    Hinweis: Diese Seite dient <strong>nur</strong> zu Testzwecken.
-                    Wir garantieren weder die Vollständigkeit, noch
-                    die Korrektheit der dargestellten Daten.
-                </div>
-            </div>
-        {% endblock %}
         {% block footer %}
             <footer>
-                <div class="row bg-dark text-white">
-                    <div class="col-6">
-                        <p class="text-left mb-0"><a href="#">Impressum</a></p>
+                <div class="row text-center bg-dark text-white pt-3 pb-2">
+                     <div class="col-5">
+                        <p class="text-center mb-0"><a href="#">Impressum</a></p>
                     </div>
-                </div>
-                <div class="row text-center bg-dark text-white pb-2">
-                    <div class="col">
-                        © Copyright 2017, Michael Götz
+                    <div class="col-7">
+                        © Copyright 2018, Michael Götz
                     </div>
                 </div>
             </footer>
