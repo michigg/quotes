@@ -13,20 +13,31 @@
                     <h2>Neues Zitat hinzufügen</h2>
                     <form method="POST" action="{% url 'register_quote' %}">
                         {% csrf_token %}
-                        <input type="date" name="timestamp" value="{{ today_date|date:'Y-m-d' }}" required
+                        <input class="mb-2 w-100" type="date" name="timestamp" value="{{ today_date|date:'Y-m-d' }}" required
                                id="id_timestamp">
 
                         {{ statement_formset.management_form }}
                         {% for form in statement_formset %}
                             <div class="form-row ml-0 mt-1">
-                                {% for field in form %}
-                                    {{ field }}
-                                {% endfor %}
-                                <button title="Weiteren Autor hinzufügen" class="btn btn-success add-form-row py-1 px-2 ml-1">+</button>
+                                <div class="form-group form-inline">
+                                    <select class="custom-select" name="form-0-author" id="id_form-0-author" required>
+                                        <option value="" selected>---------</option>
+                                        <option value="1">Peter</option>
+                                        <option value="2">Hansi</option>
+                                        <option value="3">Lol</option>
+                                    </select>
+                                    <input class="form-control" type="text" name="form-0-text" maxlength="1024" id="id_form-0-text"
+                                           required/>
+
+                                    <input type="hidden" name="form-0-id" id="id_form-0-id"/>
+                                    <button title="Weiteren Autor hinzufügen"
+                                            class="btn btn-success add-form-row py-1 px-2 ml-1">+
+                                    </button>
+                                </div>
                             </div>
                         {% endfor %}
                         <br/>
-                        <input type="submit" value="Save"/>
+                        <input class="btn btn-outline-primary btn-block" type="submit" value="Save"/>
                     </form>
                 </div>
             </div>
@@ -36,7 +47,7 @@
                     <form method="POST" action="{% url 'register_author' %}">
                         {% csrf_token %}
                         {{ authorform.as_p }}
-                        <input type="submit" value="Save"/>
+                        <input class="btn btn-outline-primary btn-block align-items-end" type="submit" value="Save"/>
                     </form>
                 </div>
             </div>
@@ -64,27 +75,27 @@
                 </div>
                 <hr class="m-2"/>
                 {% for quote in quotes %}
-                <div class="quote row">
-                    <div class="quote-timestap col-6 col-xs-6 col-sm-4 col-md-3 col-lg-2 col-xl-2">
-                        {{ quote.timestamp|date:'d-m-Y' }}
-                    </div>
-                    <div class="quote-author col-6 col-xs-6 col-sm-8 col-md-9 col-lg-10 col-xl-10">
-                    {% for statement in quote.statements.all %}
-                        <div class="row">
-                            <div class="col-6 col-xs-6 col-sm-4 col-md-3 col-lg-2 col-xl-2 quote-author">
-                                {{ statement.author.name }}
-                            </div>
-                            <div class="col-6 col-xs-6 col-sm-8 col-md-9 col-lg-10 col-xl-10 quote-statement">
-                                {{ statement.text }}
-                            </div>
+                    <div class="quote row">
+                        <div class="quote-timestap col-6 col-xs-6 col-sm-4 col-md-3 col-lg-2 col-xl-2">
+                            {{ quote.timestamp|date:'d-m-Y' }}
                         </div>
-                        {% if not forloop.last %}
-                            <hr class="m-1" />
-                        {% endif %}
-                    {% endfor %}
+                        <div class="quote-author col-6 col-xs-6 col-sm-8 col-md-9 col-lg-10 col-xl-10">
+                            {% for statement in quote.statements.all %}
+                                <div class="row">
+                                    <div class="col-6 col-xs-6 col-sm-4 col-md-3 col-lg-2 col-xl-2 quote-author">
+                                        {{ statement.author.name }}
+                                    </div>
+                                    <div class="col-6 col-xs-6 col-sm-8 col-md-9 col-lg-10 col-xl-10 quote-statement">
+                                        {{ statement.text }}
+                                    </div>
+                                </div>
+                                {% if not forloop.last %}
+                                    <hr class="m-1"/>
+                                {% endif %}
+                            {% endfor %}
+                        </div>
                     </div>
-                </div>
-                <hr class="m-2" />
+                    <hr class="m-2"/>
                 {% endfor %}
             </div>
         </div>
