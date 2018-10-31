@@ -28,8 +28,7 @@
                                         {% endfor %}
                                     </select>
                                     <input class="form-control" type="text" name="form-0-text" maxlength="1024"
-                                           id="id_form-0-text"
-                                           required/>
+                                           id="id_form-0-text" placeholder="Statement" required />
 
                                     <input type="hidden" name="form-0-id" id="id_form-0-id"/>
                                     <button title="Weiteren Autor hinzufügen"
@@ -48,7 +47,8 @@
                     <h2>Neuen Autor hinzufügen</h2>
                     <form method="POST" action="{% url 'register_author' %}">
                         {% csrf_token %}
-                        {{ authorform.as_p }}
+                        <input class="form-control mb-4" placeholder="Name" type="text" name="name" maxlength="32" required id="id_name">
+{#                        {{ authorform.as_p }}#}
                         <input class="btn btn-outline-primary btn-block align-items-end" type="submit" value="Save"/>
                     </form>
                 </div>
