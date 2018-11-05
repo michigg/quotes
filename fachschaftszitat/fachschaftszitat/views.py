@@ -1,8 +1,8 @@
-from django.shortcuts import render
+from django.shortcuts import render, HttpResponse
 from fachschaftszitat.models import Quote, Author, Statement
 from fachschaftszitat.forms import QuoteForm, AuthorsForm, StatementFormset
 from datetime import datetime
-
+from django.db.models import Count
 
 # Create your views here.
 def home(request):
@@ -12,9 +12,11 @@ def home(request):
     author_form = AuthorsForm()
     authors = Author.objects.all().order_by('name')
     today_date = datetime.today()
+    todays_author = Author.objects.annotate(num_statements=Count('statement')).order_by('num_statements')
+    print(todays_author)
     return render(request, 'home.jinja',
                   {'quotes': quotes, 'quote_form':quote_form, 'statement_formset': statement_formset, 'authorform': author_form, 'authors': authors,
-                   'today_date': today_date})
+                   'today_date': today_date, 'todays_author': todays_author})
 
 
 def registration_quote(request):
@@ -31,8 +33,8 @@ def registration_quote(request):
             quote = quote_form.save()
             quote.statements.add(*pre_saves)
             quote.save()
-            return render(request, 'success.jinja', {})
-    return render(request, 'error.jinja', {})
+            return HttpResponse(status=201)
+    return HttpResponse(status=400)
 
 
 def registration_author(request):
@@ -40,5 +42,5 @@ def registration_author(request):
         form = AuthorsForm(request.POST)
         if form.is_valid():
             form.save()
-            return render(request, 'success.jinja', {})
-        return render(request, 'error.jinja', {})
+            return HttpResponse(status=201)
+        return HttpResponse(status=400)

@@ -12,14 +12,21 @@
           type="image/png"
           href="{% static 'images/logo.png' %}">
     <meta name="author" content="Michael Götz"/>
-    <script src="{% static 'libs/jquery-3.3.1.min.js' %}"></script>
-    <script src="{% static 'js/main.js' %}"></script>
     {% block js_extra %}{% endblock %}
     <!-- Bootstrap CSS -->
     {#    <link rel="stylesheet" href="{% static 'libs/font-awesome-4.7.0/css/font-awesome.css' %}">#}
-    <link rel="stylesheet" href="{% static 'libs/bootstrap-4.0.0-beta-dist/css/bootstrap.css' %}">
-    <link rel="stylesheet" href="{% static 'home/form.css' %}">
-    <link rel="stylesheet" href="{% static 'home/main.css' %}">
+    {#    <link rel="stylesheet" href="{% static 'libs/bootstrap-4.0.0-beta-dist/css/bootstrap.css' %}">#}
+    {#    <link rel="stylesheet" href="{% static 'home/form.css' %}">#}
+    {#    <link rel="stylesheet" href="{% static 'home/main.css' %}">#}
+    <script src="{% static 'libs/jquery-3.3.1.min.js' %}"></script>
+    <script src="{% static 'js/main.js' %}"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
+    {#    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>#}
+    <script src="{% static 'libs/popper.js-1.14.4/dist/umd/popper.js' %}"></script>
+    {#    <script src="{% static 'libs/popper.js-1.14.4/dist/popper.js' %}"></script>#}
+    <script src="{% static 'libs/bootstrap-4.0.0-beta-dist/js/bootstrap.js' %}"></script>
+
+
     {% block css_extra %}{% endblock %}
 </head>
 
@@ -31,7 +38,8 @@
             <img src="{% static 'images/logo.png' %}" width="30" height="30"
                  class="d-inline-block align-top" alt="">
             WIAI Zitate
-        </a><small class="text-muted">a WIAI Original</small>
+        </a>
+        <small class="text-muted">a WIAI Original</small>
     </nav>
     <div class="container-fluid">
         <div class="row">{% block bottom_nav %}{% endblock %}</div>
@@ -51,6 +59,7 @@
         {% endblock %}
     </div>
 {% endblock %}
+<script src="{% static 'js/form.js' %}"></script>
 {% block js_tail %}{% endblock %}
 </body>
 </html>
