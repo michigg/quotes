@@ -24,7 +24,7 @@
 </head>
 
 {# ===== Body ===== #}
-<body>
+<body class="bg-dark">
 {% block body %}
     <nav class="navbar sticky-top navbar-light bg-light">
         <a class="navbar-brand" href="{% url 'home' %}">
@@ -42,11 +42,8 @@
         {% block footer %}
             <footer>
                 <div class="row text-center bg-dark text-white pt-2 pb-1">
-                    <div class="col-5">
-                        <p class="text-center mb-0"><a href="#">Impressum</a></p>
-                    </div>
-                    <div class="col-7">
-                        © Copyright 2018, Michael Götz
+                    <div class="text-center col-12">
+                        © Copyright 2018, Michael Götz (<a href="#">Impressum</a>)
                     </div>
                 </div>
             </footer>
