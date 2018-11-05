@@ -1,8 +1,7 @@
 $("#quote-form").submit(function (event) {
     event.preventDefault();
-    var form = $('#quote-form')
+    var form = $('#quote-form');
     var url = form.attr('action');
-    console.log(url);
     $.post(url, form.serialize(), function (data) {
             console.log(data);
         },
@@ -18,19 +17,23 @@ $("#author-form").submit(function (event) {
     $.ajax({
         url: url,
         type: 'post',
-        dataType: 'html',
+        dataType: 'json',
         data: form.serialize(),
         success: displaySuccessModal,
         error: displayErrorModal,
     })
 });
 
-function displaySuccessModal() {
+function displaySuccessModal(data) {
     $('#successModal').modal();
     console.log('SUCCESS');
+    console.log(data);
+    $("#successGif").attr("src", data.url)
 }
 
-function displayErrorModal() {
+function displayErrorModal(data) {
     $('#failModal').modal();
     console.log('FAIL');
+    console.log(data.responseJSON);
+    $("#failGif").attr("src", data.responseJSON.url)
 }

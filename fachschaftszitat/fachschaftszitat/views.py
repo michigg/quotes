@@ -1,8 +1,25 @@
-from django.shortcuts import render, HttpResponse
-from fachschaftszitat.models import Quote, Author, Statement
-from fachschaftszitat.forms import QuoteForm, AuthorsForm, StatementFormset
+import os
+import random
 from datetime import datetime
+
 from django.db.models import Count
+from django.http import JsonResponse
+from django.shortcuts import render
+
+from core.settings import STATICFILES_DIRS, STATIC_URL
+from fachschaftszitat.forms import QuoteForm, AuthorsForm, StatementFormset
+from fachschaftszitat.models import Quote, Author, Statement
+
+
+def get_random_sucess_url():
+    file = random.choice(os.listdir(os.path.join(STATICFILES_DIRS[0], 'images/success')))
+    return STATIC_URL + 'images/success/' + file
+
+
+def get_random_error_url():
+    file = random.choice(os.listdir(os.path.join(STATICFILES_DIRS[0], 'images/oops')))
+    return STATIC_URL + 'images/oops/' + file
+
 
 # Create your views here.
 def home(request):
@@ -15,7 +32,8 @@ def home(request):
     todays_author = Author.objects.annotate(num_statements=Count('statement')).order_by('num_statements')
     print(todays_author)
     return render(request, 'home.jinja',
-                  {'quotes': quotes, 'quote_form':quote_form, 'statement_formset': statement_formset, 'authorform': author_form, 'authors': authors,
+                  {'quotes': quotes, 'quote_form': quote_form, 'statement_formset': statement_formset,
+                   'authorform': author_form, 'authors': authors,
                    'today_date': today_date, 'todays_author': todays_author})
 
 
@@ -33,8 +51,8 @@ def registration_quote(request):
             quote = quote_form.save()
             quote.statements.add(*pre_saves)
             quote.save()
-            return HttpResponse(status=201)
-    return HttpResponse(status=400)
+            return JsonResponse({'url': get_random_sucess_url()}, status=201)
+    return JsonResponse({'url': get_random_error_url()}, status=400)
 
 
 def registration_author(request):
@@ -42,5 +60,5 @@ def registration_author(request):
         form = AuthorsForm(request.POST)
         if form.is_valid():
             form.save()
-            return HttpResponse(status=201)
-        return HttpResponse(status=400)
+            return JsonResponse({'url': get_random_sucess_url()}, status=201)
+        return JsonResponse({'url': get_random_error_url()}, status=400)
