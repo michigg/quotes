@@ -15,7 +15,7 @@ class Statement(models.Model):
         ordering = ['order_id']
 
     def __str__(self):
-        return f'{self.author.name} - {self.text[:40] + ".." if len(self.text) > 40 else self.text}'
+        return f'{self.author.name}: {self.text[:40] + ".." if len(self.text) > 40 else self.text}'
 
 
 class Quote(models.Model):
