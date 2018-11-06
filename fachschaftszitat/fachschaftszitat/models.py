@@ -11,8 +11,11 @@ class Statement(models.Model):
     order_id = models.PositiveIntegerField()
     author = models.ForeignKey('Author', on_delete=models.SET_NULL, blank=True, null=True)
 
+    class Meta:
+        ordering = ['order_id']
+
     def __str__(self):
-        return f'{self.author.name} - {self.text}'
+        return f'{self.author.name} - {self.text[:40] + ".." if len(self.text) > 40 else self.text}'
 
 
 class Quote(models.Model):
@@ -21,7 +24,7 @@ class Quote(models.Model):
     statements = models.ManyToManyField('Statement', null=False, blank=False)
 
     def __str__(self):
-        return f'{self.id}'
+        return f'{self.id}: {", ".join(str(seg) for seg in self.statements.all())}'
 
 
 class Author(models.Model):
