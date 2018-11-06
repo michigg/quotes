@@ -4,3 +4,4 @@ Jinja2==2.10
 MarkupSafe==1.0
 pytz==2017.3
 djangorestframework==3.9.0
+django-auth-ldap==1.7.0
