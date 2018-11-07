@@ -2,6 +2,7 @@ import os
 import random
 from datetime import datetime
 
+from django.contrib.auth.decorators import login_required
 from django.db.models import Count
 from django.http import JsonResponse
 from django.shortcuts import render
@@ -22,6 +23,7 @@ def get_random_error_url():
 
 
 # Create your views here.
+@login_required
 def home(request):
     quotes = Quote.objects.all().order_by('-timestamp')
     quote_form = QuoteForm(None)
@@ -37,6 +39,7 @@ def home(request):
                    'today_date': today_date, 'todays_author': todays_author})
 
 
+@login_required
 def registration_quote(request):
     if request.method == 'POST':
         quote_form = QuoteForm(request.POST)
@@ -55,6 +58,7 @@ def registration_quote(request):
     return JsonResponse({'url': get_random_error_url()}, status=400)
 
 
+@login_required
 def registration_author(request):
     if request.method == 'POST':
         form = AuthorsForm(request.POST)
