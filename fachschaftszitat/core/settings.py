@@ -28,6 +28,9 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
+LOGIN_URL = 'login'
+LOGIN_REDIRECT_URL = 'home'
+
 # Application definition
 
 INSTALLED_APPS = [
@@ -143,6 +146,9 @@ AUTH_LDAP_GROUP_SEARCH = LDAPSearch(
     '(objectClass=groupOfNames)',
 )
 AUTH_LDAP_GROUP_TYPE = GroupOfNamesType(name_attr='cn')
+# Simple group restrictions
+AUTH_LDAP_REQUIRE_GROUP = 'cn=wiai,ou=groups,dc=stuve,dc=de'
+# AUTH_LDAP_DENY_GROUP = 'cn=disabled,ou=django,ou=groups,dc=example,dc=com'
 
 # Populate the Django user from the LDAP directory.
 AUTH_LDAP_USER_ATTR_MAP = {
