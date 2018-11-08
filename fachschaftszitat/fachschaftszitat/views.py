@@ -27,7 +27,8 @@ def get_random_error_url():
 def home(request):
     if request.user.is_authenticated:
         print(request.user.groups.all())
-        quotes = Quote.objects.filter(owner__in=request.user.groups.all()).order_by('-timestamp')
+        groups = request.user.groups.all()
+        quotes = Quote.objects.filter(owner__in=groups).order_by('-timestamp')
         quote_form = QuoteForm(None)
         statement_formset = StatementFormset(queryset=Statement.objects.none())
         author_form = AuthorsForm()
@@ -35,13 +36,14 @@ def home(request):
         today_date = datetime.today()
         return render(request, 'home.jinja',
                       {'quotes': quotes, 'quote_form': quote_form, 'statement_formset': statement_formset,
-                       'authorform': author_form, 'authors': authors,
+                       'authorform': author_form, 'authors': authors, 'user_groups': groups,
                        'today_date': today_date})
+    return render(request, 'home.jinja')
 
 
 @login_required
 def registration_quote(request):
-    if request.method == 'POST':
+    if request.user.is_authenticated and request.method == 'POST':
         quote_form = QuoteForm(request.POST)
         statement_form = StatementFormset(request.POST)
         if statement_form.is_valid() and quote_form.is_valid():

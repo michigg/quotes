@@ -141,14 +141,15 @@ AUTH_LDAP_BIND_PASSWORD = "secret"
 AUTH_LDAP_USER_SEARCH = LDAPSearch("ou=persons,dc=stuve,dc=de", ldap.SCOPE_SUBTREE, "(cn=%(user)s)")
 
 AUTH_LDAP_GROUP_SEARCH = LDAPSearch(
-    'ou=django,ou=groups,dc=stuve,dc=de',
+    'ou=groups,dc=stuve,dc=de',
     ldap.SCOPE_SUBTREE,
     '(objectClass=groupOfNames)',
 )
 AUTH_LDAP_GROUP_TYPE = GroupOfNamesType(name_attr='cn')
 # Simple group restrictions
-AUTH_LDAP_REQUIRE_GROUP = 'cn=wiai,ou=groups,dc=stuve,dc=de'
+# AUTH_LDAP_REQUIRE_GROUP = 'cn=wiai,ou=groups,dc=stuve,dc=de'
 # AUTH_LDAP_DENY_GROUP = 'cn=disabled,ou=django,ou=groups,dc=example,dc=com'
+AUTH_LDAP_MIRROR_GROUPS = True
 
 # Populate the Django user from the LDAP directory.
 AUTH_LDAP_USER_ATTR_MAP = {

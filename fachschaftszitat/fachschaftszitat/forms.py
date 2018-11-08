@@ -15,7 +15,7 @@ class QuoteForm(forms.ModelForm):
 
     class Meta:
         model = Quote
-        fields = ['timestamp']
+        fields = ['timestamp', 'owner']
 
 
 StatementFormset = modelformset_factory(
