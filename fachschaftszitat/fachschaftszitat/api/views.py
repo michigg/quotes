@@ -4,8 +4,8 @@ from rest_framework.decorators import permission_classes
 from rest_framework.permissions import AllowAny
 from rest_framework.response import Response
 
-from .serializer import QuoteSerializer
-from fachschaftszitat.models import Quote
+from .serializer import QuoteSerializer, AuthorSerializer
+from fachschaftszitat.models import Quote, Author
 
 
 @permission_classes((AllowAny,))
@@ -22,3 +22,8 @@ class ApiGetLatestQuote(views.APIView):
 class ApiGetQuotes(generics.ListAPIView):
     queryset = Quote.objects.all()
     serializer_class = QuoteSerializer
+
+
+class ApiGetAuthors(generics.ListAPIView):
+    queryset = Author.objects.all()
+    serializer_class = AuthorSerializer
