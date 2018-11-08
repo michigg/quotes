@@ -61,7 +61,45 @@ $("#author-form").submit(function (event) {
     })
 });
 
+function updateQuotes() {
+    var url = '/api/quote';
+    $.ajax({
+        url: url,
+        type: 'get',
+        dataType: 'json',
+        success: resetAuthorOptions,
+        error: displayErrorModal,
+    })
+}
+
+function updateAuthors() {
+    var url = '/api/author';
+    $.ajax({
+        url: url,
+        type: 'get',
+        dataType: 'json',
+        success: resetAuthorOptions,
+        error: displayErrorModal,
+    })
+}
+
+function resetAuthorOptions(data) {
+    let options = '<option value="" selected>---------</option>';
+    console.log(data);
+    for (var author of data) {
+        options += '<option value="' + author.id + '">' + author.name + '</option>';
+    }
+    console.log(options);
+    $('.author-select-box').each(function (index) {
+        console.log($(this).val());
+        var selected = $(this).val();
+        $(this).empty().append(options);
+        $(this).val(selected);
+    })
+}
+
 function displaySuccessModal(data) {
+    updateAuthors();
     $('#successModal').modal();
     $("#successGif").attr("src", data.url)
 }
