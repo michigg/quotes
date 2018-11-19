@@ -1,9 +1,9 @@
 {% extends 'base.jinja' %}
 {% block content %}
     <div class="container">
-        <div class="row text-dark my-2">
-            <div class="col-9 p-0">
-                <div class="mr-1 bg-white p-3 h-100">
+        <div class="row text-dark mt-2 mt-sm-2 my-md-2">
+            <div class="col-12 col-sm-12 col-md-9 col-xl-9 p-0">
+                <div class="mr-0 mr-sm-0 mr-md-1 mb-4 bg-white p-3 h-100">
                     <h2 class="mb-3">Neues Zitat hinzufügen</h2>
                     <form id="quote-form" method="POST" action="{{ url('register_quote') }}">
                         {{ statement_formset.management_form }}
@@ -45,17 +45,17 @@
                         {% endfor %}
                         <div class="container mt-1">
                             <div class="row">
-                                <input class="col-3" type="date" name="timestamp"
+                                <input class="col-12 col-sm-12 col-md-3" type="date" name="timestamp"
                                        value="{{ today_date.strftime('%Y-%m-%d') }}"
                                        required id="id_timestamp">
-                                <input class="btn btn-outline-primary btn-block col-9 mt-0" type="submit" value="Save"/>
+                                <input class="btn btn-outline-primary btn-block col-12 col-sm-12 col-md-9 mt-0" type="submit" value="Save"/>
                             </div>
                         </div>
                     </form>
                 </div>
             </div>
-            <div class="col-3 p-0">
-                <div class="ml-1 bg-white p-3 h-100">
+            <div class="col-12 col-xs-12 col-sm-12 col-md-3 p-0 mt-1 mt-md-0">
+                <div class="ml-0 ml-sm-0 ml-md-1 bg-white p-3 h-100">
                     <h2 class="mb-3">Neuen Autor hinzufügen</h2>
                     <form id="author-form" method="POST" action="{{ url('register_author') }} ">
                         <input type="text" name="name" maxlength="32" required="" id="id_name" class="col-12 mb-1">
@@ -64,26 +64,25 @@
                 </div>
             </div>
         </div>
-        <div class="row text-dark mb-2">
+        <div class="row text-dark mb-2 mt-1 mt-sm-1 mt-md-0">
             <div class="col-12 bg-white p-3">
-                <div id="test"></div>
                 <div class="row mb-2">
                     <h2 class="col-8">Zitate</h2>
-                    <p class="col-4 mb-0 quote-search">
+                    <div class="col-12 col-sm-12 col-md-4 mb-0 quote-search">
                         Suche: <input type="text" id="search" class="ml-2 mr-2" autofocus/>
                         <button id="reset" title="Suche zurücksetzen">✕</button>
-                    </p>
+                    </div>
                 </div>
                 <div class="row">
-                    <div class="col-6 col-xs-6 col-sm-4 col-md-3 col-lg-2 col-xl-2">
+                    <div class="col-3 col-xs-3 col-sm-3 col-md-3 col-lg-2 col-xl-2">
                         <strong>Zeitstempel</strong>
                     </div>
-                    <div class="col-6 col-xs-6 col-sm-8 col-md-9 col-lg-10 col-xl-10">
+                    <div class="col-9 col-xs-9 col-sm-9 col-md-9 col-lg-10 col-xl-10">
                         <div class="row">
-                            <div class="col-6 col-xs-6 col-sm-4 col-md-3 col-lg-2 col-xl-2">
+                            <div class="col-3 col-xs-6 col-sm-4 col-md-3 col-lg-2 col-xl-2">
                                 <strong>Quelle</strong>
                             </div>
-                            <div class="col-6 col-xs-6 col-sm-8 col-md-9 col-lg-10 col-xl-10">
+                            <div class="col-9 col-xs-6 col-sm-8 col-md-9 col-lg-10 col-xl-10">
                                 <strong>Zitat</strong>
                             </div>
                         </div>
@@ -95,16 +94,16 @@
                     {% raw %}
                         <script id="entry-template" type="text/x-handlebars-template">
                             <div class="quote row">
-                                <div class="quote-timestap col-6 col-xs-6 col-sm-4 col-md-3 col-lg-2 col-xl-2">
+                                <div class="quote-timestap col-3 col-xs-3 col-sm-3 col-md-3 col-lg-2 col-xl-2">
                                     {{ timestamp }}
                                 </div>
-                                <div class="quote-author col-6 col-xs-6 col-sm-8 col-md-9 col-lg-10 col-xl-10">
+                                <div class="quote-author col-9 col-xs-9 col-sm-9 col-md-9 col-lg-10 col-xl-10">
                                     {{#each statements }}
                                     <div class="row">
-                                        <div class="col-6 col-xs-6 col-sm-4 col-md-3 col-lg-2 col-xl-2 quote-author">
+                                        <div class="col-3 col-xs-6 col-sm-4 col-md-3 col-lg-2 col-xl-2 quote-author">
                                             {{ this.author.name }}
                                         </div>
-                                        <div class="col-6 col-xs-6 col-sm-8 col-md-9 col-lg-10 col-xl-10 quote-statement">
+                                        <div class="col-9 col-xs-6 col-sm-8 col-md-9 col-lg-10 col-xl-10 quote-statement">
                                             {{ this.text }}
                                         </div>
                                     </div>
