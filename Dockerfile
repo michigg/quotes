@@ -1,5 +1,5 @@
 FROM alpine:3.6
-ADD ["requirements.txt", "/requirements.txt"]
+ADD ["fachschaftszitat/requirements.txt", "/requirements.txt"]
 RUN apk upgrade --update && \
 	apk add --update python3 && \ 
 	pip3 install -r /requirements.txt && rm /requirements.txt

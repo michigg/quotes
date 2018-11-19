@@ -1,75 +1,201 @@
 {% extends 'base.jinja' %}
-{% block headline %}
-    <header class="">
-        <h1 class="text-center mb-0" style="font-size: 20px">WIAI Zitate</h1>
-        <p class="text-center">WIAI Original</p>
-    </header>
-{% endblock %}
 {% block content %}
     <div class="container">
-        <div class="row text-dark mb-4">
-            <div class="col-6 bg-white p-2">
-                <h2>Neue Zitate hinzufügen</h2>
-                <form method="POST" action="{% url 'register_quote' %}">
-                    {% csrf_token %}
-                    <p><label for="id_quote">Quote:</label>
-                        <textarea class="form-control"  name="quote" rows="5" maxlength="1024" id="id_quote"></textarea>
-                    </p>
-                    <p><label for="id_timestamp">Timestamp:</label>
-                        <input type="date" name="timestamp" value="{{ today_date|date:'Y-m-d' }}" required
-                               id="id_timestamp"/>
-                    </p>
-                    <p><label for="id_authors">Quelle:</label>
-                        <select name="authors" required id="id_authors" multiple="multiple">
-                            {% for author in authors %}
-                                <option value="{{ author.id }}">{{ author.name }}</option>
-                            {% endfor %}
-                        </select>
-                    </p>
-                    <input type="submit" value="Save"/>
-                </form>
+        <div class="row text-dark my-2">
+            <div class="col-9 p-0">
+                <div class="mr-1 bg-white p-3 h-100">
+                    <h2 class="mb-3">Neues Zitat hinzufügen</h2>
+                    <form id="quote-form" method="POST" action="{{ url('register_quote') }}">
+                        {{ statement_formset.management_form }}
+                        {% if user_groups|length > 1 %}
+                            <select class="custom-select col-3" name="owner" required id="id_owner">
+                                <option value="" selected>---------</option>
+                                {% for group in user_groups %}
+                                    <option value="{{ group.id }}">{{ group.name }}</option>
+                                {% endfor %}
+                            </select>
+                        {% else %}
+                            <select class="custom-select col-3" name="owner" required id="id_owner">
+                                {% for group in user_groups %}
+                                    <option value="{{ group.id }}">{{ group.name }}</option>
+                                {% endfor %}
+                            </select>
+                        {% endif %}
+                        {% for form in statement_formset %}
+                            <div class="ml-0 mt-1 container conversation-particle">
+                                <div class="form-group row mb-0">
+                                    <select class="custom-select col-3 author-select-box" name="form-0-author"
+                                            id="id_form-0-author"
+                                            required>
+                                        <option value="" selected>---------</option>
+                                        {% for author in authors %}
+                                            <option value="{{ author.id }}">{{ author.name }}</option>
+                                        {% endfor %}
+                                    </select>
+                                    <input class="form-control col-8" type="text" name="form-0-text" maxlength="1024"
+                                           id="id_form-0-text"
+                                           required/>
+
+                                    <input type="hidden" name="form-0-id" id="id_form-0-id" class=""/>
+                                    <button title="Weiteren Autor hinzufügen"
+                                            class="btn btn-success btn-block col-1 add-form-row">+
+                                    </button>
+                                </div>
+                            </div>
+                        {% endfor %}
+                        <div class="container mt-1">
+                            <div class="row">
+                                <input class="col-3" type="date" name="timestamp"
+                                       value="{{ today_date.strftime('%Y-%m-%d') }}"
+                                       required id="id_timestamp">
+                                <input class="btn btn-outline-primary btn-block col-9 mt-0" type="submit" value="Save"/>
+                            </div>
+                        </div>
+                    </form>
+                </div>
             </div>
-            <div class="col-6 bg-white p-2">
-                <h2>Neue Quelle hinzufügen</h2>
-                <form method="POST" action="{% url 'register_author' %}">
-                    {% csrf_token %}
-                    {{ authorform.as_p }}
-                    <input type="submit" value="Save"/>
-                </form>
+            <div class="col-3 p-0">
+                <div class="ml-1 bg-white p-3 h-100">
+                    <h2 class="mb-3">Neuen Autor hinzufügen</h2>
+                    <form id="author-form" method="POST" action="{{ url('register_author') }} ">
+                        <input type="text" name="name" maxlength="32" required="" id="id_name" class="col-12 mb-1">
+                        <input class="btn btn-outline-primary btn-block align-items-end" type="submit" value="Save"/>
+                    </form>
+                </div>
             </div>
         </div>
-        <div class="row text-dark">
-            <div class="col-12 bg-white">
-                <h2>Zitate</h2>
-                <p>Search: <input type="text" id="search" autofocus/>
-                    <span id="reset">✕</span>
-                </p>
+        <div class="row text-dark mb-2">
+            <div class="col-12 bg-white p-3">
+                <div id="test"></div>
+                <div class="row mb-2">
+                    <h2 class="col-8">Zitate</h2>
+                    <p class="col-4 mb-0 quote-search">
+                        Suche: <input type="text" id="search" class="ml-2 mr-2" autofocus/>
+                        <button id="reset" title="Suche zurücksetzen">✕</button>
+                    </p>
+                </div>
                 <div class="row">
                     <div class="col-6 col-xs-6 col-sm-4 col-md-3 col-lg-2 col-xl-2">
                         <strong>Zeitstempel</strong>
                     </div>
-                    <div class="col-6 col-xs-6 col-sm-4 col-md-3 col-lg-2 col-xl-2">
-                        <strong>Quelle</strong>
-                    </div>
-                    <div class="col-12 col-xs-12 col-sm-4 col-md-6 col-lg-6 col-xl-8">
-                        <strong>Zitat</strong>
+                    <div class="col-6 col-xs-6 col-sm-8 col-md-9 col-lg-10 col-xl-10">
+                        <div class="row">
+                            <div class="col-6 col-xs-6 col-sm-4 col-md-3 col-lg-2 col-xl-2">
+                                <strong>Quelle</strong>
+                            </div>
+                            <div class="col-6 col-xs-6 col-sm-8 col-md-9 col-lg-10 col-xl-10">
+                                <strong>Zitat</strong>
+                            </div>
+                        </div>
                     </div>
                 </div>
-                <hr/>
-                <hr/>
-                {% for quote in quotes %}
-                    <div class="quote row">
-                        <div class="quote-timestap col-6 col-xs-6 col-sm-4 col-md-3 col-lg-2 col-xl-2">
-                            {{ quote.timestamp }}
+                <hr class="m-2"/>
+                <div id="quotes-wrapper">
+                    {% for quote in quotes %}
+                        <div class="quote row">
+                            <div class="quote-timestap col-6 col-xs-6 col-sm-4 col-md-3 col-lg-2 col-xl-2">
+                                {{ quote.timestamp.strftime('%d-%m-%Y') }}
+                            </div>
+                            <div class="quote-author col-6 col-xs-6 col-sm-8 col-md-9 col-lg-10 col-xl-10">
+                                {% for statement in quote.statements.all() %}
+                                    <div class="row">
+                                        <div class="col-6 col-xs-6 col-sm-4 col-md-3 col-lg-2 col-xl-2 quote-author">
+                                            {{ statement.author.name }}
+                                        </div>
+                                        <div class="col-6 col-xs-6 col-sm-8 col-md-9 col-lg-10 col-xl-10 quote-statement">
+                                            {{ statement.text }}
+                                        </div>
+                                    </div>
+                                    {% if not loop.last %}
+                                        <hr class="m-1"/>
+                                    {% endif %}
+                                {% endfor %}
+                            </div>
                         </div>
-                        <div class="quote-author col-6 col-xs-6 col-sm-4 col-md-3 col-lg-2 col-xl-2">
-                            {% for author in quote.authors.all %}{{ author.name }} {% endfor %}
+                        <hr class="m-2"/>
+                    {% endfor %}
+                </div>
+                {% raw %}
+                    <script id="entry-template" type="text/x-handlebars-template">
+                        <div class="quote row">
+                            <div class="quote-timestap col-6 col-xs-6 col-sm-4 col-md-3 col-lg-2 col-xl-2">
+                                {{ timestamp }}
+                            </div>
+                            <div class="quote-author col-6 col-xs-6 col-sm-8 col-md-9 col-lg-10 col-xl-10">
+                                {{#each statements }}
+                                <div class="row">
+                                    <div class="col-6 col-xs-6 col-sm-4 col-md-3 col-lg-2 col-xl-2 quote-author">
+                                        {{ this.author.name }}
+                                    </div>
+                                    <div class="col-6 col-xs-6 col-sm-8 col-md-9 col-lg-10 col-xl-10 quote-statement">
+                                        {{ this.text }}
+                                    </div>
+                                </div>
+                                {{#if @last}}
+                                {{ else }}
+                                <hr class="m-1"/>
+                                {{/if}}
+                                {{/each}}
+                            </div>
                         </div>
-                        <div class="quote-quote col-12 col-xs-12 col-sm-4 col-md-6 col-lg-6 col-xl-8">
-                            {{ quote.quote }}
+                        <hr class="m-2"/>
+                    </script>
+                {% endraw %}
+            </div>
+        </div>
+        <!-- The Modal -->
+        <div class="modal" id="successModal">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content" role="document">
+
+                    <!-- Modal Header -->
+                    <div class="modal-header text-dark">
+                        <h4 class="modal-title text-dark">Krass!</h4>
+                        <button type="button" class="close" data-dismiss="modal">&times;
+                        </button>
+                    </div>
+
+                    <!-- Modal body -->
+                    <div class="modal-body">
+                        <h5 class="text-success">Success</h5>
+                        <p class="text-dark">Das Formular wurde erfolgreich gespeichert!</p>
+                        <div class="container-fluid">
+                            <div class="row">
+                                <div class="col-12">
+                                    <video id="successGif" src="{{ static('images/success/dumbledore.mp4') }}" loop
+                                           autoplay
+                                           width="100%"></video>
+                                </div>
+                            </div>
                         </div>
                     </div>
-                {% endfor %}
+                </div>
+            </div>
+        </div>
+        <div class="modal" id="failModal">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content" role="document">
+
+                    <!-- Modal Header -->
+                    <div class="modal-header text-dark">
+                        <h4 class="modal-title text-dark">Fuck!</h4>
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    </div>
+
+                    <!-- Modal body -->
+                    <div class="modal-body">
+                        <h5 class="text-danger">Error</h5>
+                        <p class="text-dark">Sorry Dude!</p>
+                        <div class="container-fluid">
+                            <div class="row">
+                                <div class="col-12">
+                                    <video id="failGif" src="{{ static('/images/oops/oops.mp4') }}" loop autoplay
+                                           width="100%"></video>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>

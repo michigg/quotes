@@ -1,0 +1,22 @@
+html {
+    min-height: 100vh;
+}
+
+footer {
+    width: 100%;
+    font-size: 12px;
+}
+
+footer a:link,
+footer a:hover,
+footer a:visited,
+footer a:active {
+    color: white;
+    text-decoration: underline;
+}
+
+.quote-search {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+}
