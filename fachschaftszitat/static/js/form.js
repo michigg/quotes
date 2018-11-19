@@ -12,6 +12,19 @@ const AUTHOR_FORMULAR = $("#author-form")
 let source = document.getElementById("entry-template").innerHTML;
 let template = Handlebars.compile(source);
 
+/* jshint esversion: 6 */
+function ready(fn) {
+    if (document.attachEvent ? document.readyState === "complete" : document.readyState !== "loading") {
+        fn();
+    } else {
+        document.addEventListener("DOMContentLoaded", fn);
+    }
+}
+
+ready(function () {
+    updateQuotes();
+});
+
 /**
  * Cookie setting for django
  *

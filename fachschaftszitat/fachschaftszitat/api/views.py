@@ -21,7 +21,9 @@ class ApiGetLatestQuote(views.APIView):
 
 @permission_classes((IsAuthenticated,))
 class ApiGetQuotes(generics.ListAPIView):
-    queryset = Quote.objects.all()
+    def get_queryset(self):
+        return Quote.objects.filter(owner__in=self.request.user.groups.all()).order_by('-timestamp')
+
     serializer_class = QuoteSerializer
 
 

@@ -91,56 +91,34 @@
                 </div>
                 <hr class="m-2"/>
                 <div id="quotes-wrapper">
-                    {% for quote in quotes %}
-                        <div class="quote row">
-                            <div class="quote-timestap col-6 col-xs-6 col-sm-4 col-md-3 col-lg-2 col-xl-2">
-                                {{ quote.timestamp.strftime('%d-%m-%Y') }}
-                            </div>
-                            <div class="quote-author col-6 col-xs-6 col-sm-8 col-md-9 col-lg-10 col-xl-10">
-                                {% for statement in quote.statements.all() %}
+                    {# Handlebars.js code #}
+                    {% raw %}
+                        <script id="entry-template" type="text/x-handlebars-template">
+                            <div class="quote row">
+                                <div class="quote-timestap col-6 col-xs-6 col-sm-4 col-md-3 col-lg-2 col-xl-2">
+                                    {{ timestamp }}
+                                </div>
+                                <div class="quote-author col-6 col-xs-6 col-sm-8 col-md-9 col-lg-10 col-xl-10">
+                                    {{#each statements }}
                                     <div class="row">
                                         <div class="col-6 col-xs-6 col-sm-4 col-md-3 col-lg-2 col-xl-2 quote-author">
-                                            {{ statement.author.name }}
+                                            {{ this.author.name }}
                                         </div>
                                         <div class="col-6 col-xs-6 col-sm-8 col-md-9 col-lg-10 col-xl-10 quote-statement">
-                                            {{ statement.text }}
+                                            {{ this.text }}
                                         </div>
                                     </div>
-                                    {% if not loop.last %}
-                                        <hr class="m-1"/>
-                                    {% endif %}
-                                {% endfor %}
-                            </div>
-                        </div>
-                        <hr class="m-2"/>
-                    {% endfor %}
-                </div>
-                {% raw %}
-                    <script id="entry-template" type="text/x-handlebars-template">
-                        <div class="quote row">
-                            <div class="quote-timestap col-6 col-xs-6 col-sm-4 col-md-3 col-lg-2 col-xl-2">
-                                {{ timestamp }}
-                            </div>
-                            <div class="quote-author col-6 col-xs-6 col-sm-8 col-md-9 col-lg-10 col-xl-10">
-                                {{#each statements }}
-                                <div class="row">
-                                    <div class="col-6 col-xs-6 col-sm-4 col-md-3 col-lg-2 col-xl-2 quote-author">
-                                        {{ this.author.name }}
-                                    </div>
-                                    <div class="col-6 col-xs-6 col-sm-8 col-md-9 col-lg-10 col-xl-10 quote-statement">
-                                        {{ this.text }}
-                                    </div>
+                                    {{#if @last}}
+                                    {{ else }}
+                                    <hr class="m-1"/>
+                                    {{/if}}
+                                    {{/each}}
                                 </div>
-                                {{#if @last}}
-                                {{ else }}
-                                <hr class="m-1"/>
-                                {{/if}}
-                                {{/each}}
                             </div>
-                        </div>
-                        <hr class="m-2"/>
-                    </script>
-                {% endraw %}
+                            <hr class="m-2"/>
+                        </script>
+                    {% endraw %}
+                </div>
             </div>
         </div>
         <!-- The Modal -->

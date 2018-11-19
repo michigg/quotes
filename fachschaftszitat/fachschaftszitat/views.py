@@ -28,14 +28,13 @@ def home(request):
     if request.user.is_authenticated:
         print(request.user.groups.all())
         groups = request.user.groups.all()
-        quotes = Quote.objects.filter(owner__in=groups).order_by('-timestamp')
         quote_form = QuoteForm(None)
         statement_formset = StatementFormset(queryset=Statement.objects.none())
         author_form = AuthorsForm()
         authors = Author.objects.all().order_by('name')
         today_date = datetime.today()
         return render(request, 'home.jinja',
-                      {'quotes': quotes, 'quote_form': quote_form, 'statement_formset': statement_formset,
+                      {'quote_form': quote_form, 'statement_formset': statement_formset,
                        'authorform': author_form, 'authors': authors, 'user_groups': groups,
                        'today_date': today_date})
     return render(request, 'home.jinja')
