@@ -2,13 +2,28 @@
  * setup JQuery's AJAX methods to setup CSRF token in the request before sending it off.
  * http://stackoverflow.com/questions/5100539/django-csrf-check-failing-with-an-ajax-post-request
  */
+// CONFIG
+const QUOTES_ENDPOINT = '/api/quote';
+const AUTHORS_ENDPOINT = '/api/author';
+const QUOTE_FORMULAR = $('#quote-form');
+const QUOTE_FORMULAR_CONTENTS = document.getElementById('quote-form').innerHTML;
+const AUTHOR_FORMULAR = $("#author-form")
 
+let source = document.getElementById("entry-template").innerHTML;
+let template = Handlebars.compile(source);
+
+/**
+ * Cookie setting for django
+ *
+ * @param name  cookie name
+ * @returns {*}
+ */
 function getCookie(name) {
-    var cookieValue = null;
+    let cookieValue = null;
     if (document.cookie && document.cookie !== '') {
-        var cookies = document.cookie.split(';');
+        let cookies = document.cookie.split(';');
         for (var i = 0; i < cookies.length; i++) {
-            var cookie = jQuery.trim(cookies[i]);
+            let cookie = jQuery.trim(cookies[i]);
             // Does this cookie string begin with the name we want?
             if (cookie.substring(0, name.length + 1) === (name + '=')) {
                 cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
@@ -34,48 +49,72 @@ $.ajaxSetup({
     }
 });
 
-$("#quote-form").submit(function (event) {
+QUOTE_FORMULAR.submit(function (event) {
     event.preventDefault();
-    var form = $('#quote-form');
-    var url = form.attr('action');
+    var url = QUOTE_FORMULAR.attr('action');
     $.ajax({
         url: url,
         type: 'post',
         dataType: 'json',
-        data: form.serialize(),
-        success: displaySuccessModal,
-        error: displayErrorModal,
-    })
-});
-$("#author-form").submit(function (event) {
-    event.preventDefault();
-    var form = $('#author-form');
-    var url = form.attr('action');
-    $.ajax({
-        url: url,
-        type: 'post',
-        dataType: 'json',
-        data: form.serialize(),
-        success: displaySuccessModal,
+        data: QUOTE_FORMULAR.serialize(),
+        success: quoteSuccessProcess,
         error: displayErrorModal,
     })
 });
 
-function updateQuotes() {
-    var url = '/api/quote';
+function clearQuoteFormular() {
+    QUOTE_FORMULAR.empty();
+    QUOTE_FORMULAR.append(QUOTE_FORMULAR_CONTENTS);
+}
+
+function quoteSuccessProcess(data) {
+    updateQuotes();
+    displaySuccessModal(data);
+    clearQuoteFormular();
+}
+
+AUTHOR_FORMULAR.submit(function (event) {
+    event.preventDefault();
+    var url = AUTHOR_FORMULAR.attr('action');
     $.ajax({
         url: url,
+        type: 'post',
+        dataType: 'json',
+        data: AUTHOR_FORMULAR.serialize(),
+        success: authorSuccessProcess,
+        error: displayErrorModal,
+    })
+});
+
+function authorSuccessProcess(data) {
+    updateAuthors();
+    displaySuccessModal(data);
+    AUTHOR_FORMULAR[0].reset();
+}
+
+function updateQuotes() {
+    $.ajax({
+        url: QUOTES_ENDPOINT,
         type: 'get',
         dataType: 'json',
-        success: resetAuthorOptions,
+        success: resetQuotes,
         error: displayErrorModal,
     })
 }
 
+function resetQuotes(data) {
+    let quotes = $('#quotes-wrapper');
+    let html = '';
+    for (const context of data) {
+        html += template(context);
+    }
+    quotes.empty();
+    quotes.append(html)
+}
+
 function updateAuthors() {
-    var url = '/api/author';
     $.ajax({
-        url: url,
+        url: AUTHORS_ENDPOINT,
         type: 'get',
         dataType: 'json',
         success: resetAuthorOptions,
@@ -85,13 +124,10 @@ function updateAuthors() {
 
 function resetAuthorOptions(data) {
     let options = '<option value="" selected>---------</option>';
-    console.log(data);
     for (var author of data) {
         options += '<option value="' + author.id + '">' + author.name + '</option>';
     }
-    console.log(options);
     $('.author-select-box').each(function (index) {
-        console.log($(this).val());
         var selected = $(this).val();
         $(this).empty().append(options);
         $(this).val(selected);
@@ -99,7 +135,6 @@ function resetAuthorOptions(data) {
 }
 
 function displaySuccessModal(data) {
-    updateAuthors();
     $('#successModal').modal();
     $("#successGif").attr("src", data.url)
 }
