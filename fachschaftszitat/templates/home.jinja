@@ -1,12 +1,4 @@
 {% extends 'base.jinja' %}
-{#{% load static %}#}
-
-{#{% block headline %}#}
-{#    <header class="">#}
-{#        <h1 class="text-center mb-0" style="font-size: 20px">WIAI Zitate</h1>#}
-{#        <p class="text-center mb-2">WIAI Original</p>#}
-{#    </header>#}
-{#{% endblock %}#}
 {% block content %}
     <div class="container">
         <div class="row text-dark my-2">
@@ -15,7 +7,20 @@
                     <h2 class="mb-3">Neues Zitat hinzufügen</h2>
                     <form id="quote-form" method="POST" action="{{ url('register_quote') }}">
                         {{ statement_formset.management_form }}
-                        {#                        {% csrf_token %}#}
+                        {% if user_groups|length > 1 %}
+                            <select class="custom-select col-3" name="owner" required id="id_owner">
+                                <option value="" selected>---------</option>
+                                {% for group in user_groups %}
+                                    <option value="{{ group.id }}">{{ group.name }}</option>
+                                {% endfor %}
+                            </select>
+                        {% else %}
+                            <select class="custom-select col-3" name="owner" required id="id_owner">
+                                {% for group in user_groups %}
+                                    <option value="{{ group.id }}">{{ group.name }}</option>
+                                {% endfor %}
+                            </select>
+                        {% endif %}
                         {% for form in statement_formset %}
                             <div class="ml-0 mt-1 container conversation-particle">
                                 <div class="form-group row mb-0">

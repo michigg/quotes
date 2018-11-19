@@ -1,4 +1,5 @@
 from django.db import models
+from django.contrib.auth.models import Group
 
 MAX_QUOTE_LENGTH = 1024
 MAX_AUTHOR_LENGTH = 32
@@ -23,6 +24,7 @@ class Statement(models.Model):
 
 class Quote(models.Model):
     id = models.AutoField(primary_key=True)
+    owner = models.ForeignKey(Group, on_delete=models.PROTECT)
     timestamp = models.DateField(null=False, blank=False)
     statements = models.ManyToManyField('Statement', null=False, blank=False)
 

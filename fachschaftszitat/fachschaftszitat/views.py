@@ -2,6 +2,7 @@ import os
 import random
 from datetime import datetime
 
+from django.contrib.auth.decorators import login_required
 from django.db.models import Count
 from django.http import JsonResponse
 from django.shortcuts import render
@@ -22,23 +23,27 @@ def get_random_error_url():
 
 
 # Create your views here.
+@login_required
 def home(request):
-    quotes = Quote.objects.all().order_by('-timestamp')
-    quote_form = QuoteForm(None)
-    statement_formset = StatementFormset(queryset=Statement.objects.none())
-    author_form = AuthorsForm()
-    authors = Author.objects.all().order_by('name')
-    today_date = datetime.today()
-    todays_author = Author.objects.annotate(num_statements=Count('statement')).order_by('num_statements')
-    print(todays_author)
-    return render(request, 'home.jinja',
-                  {'quotes': quotes, 'quote_form': quote_form, 'statement_formset': statement_formset,
-                   'authorform': author_form, 'authors': authors,
-                   'today_date': today_date, 'todays_author': todays_author})
+    if request.user.is_authenticated:
+        print(request.user.groups.all())
+        groups = request.user.groups.all()
+        quotes = Quote.objects.filter(owner__in=groups).order_by('-timestamp')
+        quote_form = QuoteForm(None)
+        statement_formset = StatementFormset(queryset=Statement.objects.none())
+        author_form = AuthorsForm()
+        authors = Author.objects.all().order_by('name')
+        today_date = datetime.today()
+        return render(request, 'home.jinja',
+                      {'quotes': quotes, 'quote_form': quote_form, 'statement_formset': statement_formset,
+                       'authorform': author_form, 'authors': authors, 'user_groups': groups,
+                       'today_date': today_date})
+    return render(request, 'home.jinja')
 
 
+@login_required
 def registration_quote(request):
-    if request.method == 'POST':
+    if request.user.is_authenticated and request.method == 'POST':
         quote_form = QuoteForm(request.POST)
         statement_form = StatementFormset(request.POST)
         if statement_form.is_valid() and quote_form.is_valid():
@@ -55,6 +60,7 @@ def registration_quote(request):
     return JsonResponse({'url': get_random_error_url()}, status=400)
 
 
+@login_required
 def registration_author(request):
     if request.method == 'POST':
         form = AuthorsForm(request.POST)
