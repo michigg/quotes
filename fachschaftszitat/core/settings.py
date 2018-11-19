@@ -53,8 +53,18 @@ ROOT_URLCONF = 'core.urls'
 
 TEMPLATES = [
     {
+        'BACKEND': 'django.template.backends.jinja2.Jinja2',
+        'DIRS': [
+            'templates',
+        ],
+        'APP_DIRS': True,
+        'OPTIONS': {
+            'environment': 'core.jinja2.environment'
+        },
+    },
+    {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': ['templates', ],
+        'DIRS': ['templates/admin', ],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
