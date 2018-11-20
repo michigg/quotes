@@ -1,7 +1,7 @@
 FROM alpine:3.6
 ADD ["fachschaftszitat/requirements.txt", "/requirements.txt"]
 RUN apk upgrade --update && \
-	apk add --update python3 && \ 
+	apk add --update python3 build-base openldap-dev python3-dev py3-psycopg2 && \ 
 	pip3 install -r /requirements.txt && rm /requirements.txt
 WORKDIR /fs_zitat
 EXPOSE 80

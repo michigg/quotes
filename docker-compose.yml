@@ -1,0 +1,31 @@
+version: "2"
+
+networks:
+ pg_db:
+  internal: true
+
+services:
+ bar_web:
+  image: zitate:0.1
+  build:
+   context: .
+   dockerfile: Dockerfile
+  networks:
+    - default
+    - pg_db
+  volumes:
+   - ./data/data:/zitate/data
+  env_file:
+   - docker.env
+  ports:
+   - 8888:80
+
+ dbzitate:
+  image: postgres:10-alpine
+  networks:
+   - pg_db
+  volumes:
+   - ./data/pgdata/:/var/lib/postgresql/data/
+  env_file:
+   - docker.env
+
