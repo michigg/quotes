@@ -84,6 +84,7 @@ function quoteSuccessProcess(data) {
     updateQuotes();
     displaySuccessModal(data);
     clearQuoteFormular();
+    updateAuthors();
 }
 
 AUTHOR_FORMULAR.submit(function (event) {
