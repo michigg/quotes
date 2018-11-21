@@ -48,7 +48,8 @@
                                 <input class="col-12 col-sm-12 col-md-3" type="date" name="timestamp"
                                        value="{{ today_date.strftime('%Y-%m-%d') }}"
                                        required id="id_timestamp">
-                                <input class="btn btn-outline-primary btn-block col-12 col-sm-12 col-md-9 mt-0" type="submit" value="Save"/>
+                                <input class="btn btn-outline-primary btn-block col-12 col-sm-12 col-md-9 mt-0"
+                                       type="submit" value="Save"/>
                             </div>
                         </div>
                     </form>
@@ -127,15 +128,15 @@
 
                     <!-- Modal Header -->
                     <div class="modal-header text-dark">
-                        <h4 class="modal-title text-dark">Krass!</h4>
+                        <h4 class="modal-title text-dark">Krass! <span class="text-success">Success</span>
+                            <p class="text-dark">Das Formular wurde erfolgreich gespeichert!</p></h4>
                         <button type="button" class="close" data-dismiss="modal">&times;
                         </button>
                     </div>
 
                     <!-- Modal body -->
                     <div class="modal-body">
-                        <h5 class="text-success">Success</h5>
-                        <p class="text-dark">Das Formular wurde erfolgreich gespeichert!</p>
+
                         <div class="container-fluid">
                             <div class="row">
                                 <div class="col-12">
@@ -155,14 +156,14 @@
 
                     <!-- Modal Header -->
                     <div class="modal-header text-dark">
-                        <h4 class="modal-title text-dark">Fuck!</h4>
+                        <h4 class="modal-title text-dark">Fuck! <span class="text-danger">Error!</span>
+                            <span class="text-dark">Sorry Dude!</span></h4>
+
                         <button type="button" class="close" data-dismiss="modal">&times;</button>
                     </div>
 
                     <!-- Modal body -->
                     <div class="modal-body">
-                        <h5 class="text-danger">Error</h5>
-                        <p class="text-dark">Sorry Dude!</p>
                         <div class="container-fluid">
                             <div class="row">
                                 <div class="col-12">
