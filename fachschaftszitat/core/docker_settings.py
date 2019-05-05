@@ -19,7 +19,7 @@ DOMAIN = os.environ['DOMAIN']
 SITE_NAME = os.environ['SITE_NAME']
 SECRET_KEY = os.environ['SECRET_KEY']
 DEBUG = bool(os.environ.get('DEBUG', False))
-ALLOWED_HOSTS = os.environ['ALLOWED_HOSTS'].split()
+ALLOWED_HOSTS = os.environ['ALLOWED_HOSTS'].split(',')
 
 LOGIN_URL = 'login'
 LOGIN_REDIRECT_URL = 'home'

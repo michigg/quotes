@@ -26,7 +26,7 @@ class Quote(models.Model):
     id = models.AutoField(primary_key=True)
     owner = models.ForeignKey(Group, on_delete=models.PROTECT)
     timestamp = models.DateField(null=False, blank=False)
-    statements = models.ManyToManyField('Statement', null=False, blank=False)
+    statements = models.ManyToManyField('Statement')
 
     def __str__(self):
         return f'{self.id}: {", ".join(str(seg) for seg in self.statements.all())}'
