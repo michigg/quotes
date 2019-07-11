@@ -32,9 +32,10 @@ function searchFilter(searchfield, itemSelector) {
     items.forEach(function (item) {
         var quote = item.getElementsByClassName('quote-statement')[0].innerHTML;
         var originator = item.getElementsByClassName('quote-author')[0].innerHTML;
+        var group = item.getElementsByClassName('quote-group')[0].innerHTML;
 
-        if (!quote.toLowerCase().includes(searchfield.value.toLowerCase()) && !originator.toLowerCase().includes(searchfield.value.toLowerCase())) {
-            item.dataset.displayTypeBackup = item.style.display
+        if (!quote.toLowerCase().includes(searchfield.value.toLowerCase()) && !originator.toLowerCase().includes(searchfield.value.toLowerCase()) && !group.toLowerCase().includes(searchfield.value.toLowerCase())) {
+            item.dataset.displayTypeBackup = item.style.display;
             item.style.display = "none";
         }
     });

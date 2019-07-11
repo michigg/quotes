@@ -30,19 +30,19 @@
                                 <div class="col-5 col-lg-8">
                                     {{ timestamp }}
                                 </div>
-                                <div class="col-7 col-lg-4 text-right">
+                                <div class="quote-group col-7 col-lg-4 text-right">
                                     {{ owner.name }}
                                 </div>
                             </div>
                             <hr class="mt-1 mb-2 d-block d-lg-none"/>
                         </div>
-                        <div class="quote-author col-12 col-lg-9">
+                        <div class="col-12 col-lg-9">
                             {{#each statements }}
                             <div class="row">
-                                <div class="col-4 col-sm-2">
+                                <div class="quote-author col-4 col-sm-2">
                                     {{ this.author.name }}
                                 </div>
-                                <div class="col-8 col-sm-10">
+                                <div class="quote-statement col-8 col-sm-10">
                                     {{ this.text }}
                                 </div>
                             </div>
