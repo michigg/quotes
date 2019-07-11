@@ -23,8 +23,6 @@
     <script src="{{ static('js/main.js') }}"></script>
     <script src="{{ static('libs/popper.js-1.14.4/dist/umd/popper.js') }}"></script>
     <script src="{{ static('libs/bootstrap-4.0.0-beta-dist/js/bootstrap.js') }}"></script>
-    {#    <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.12/handlebars.js"></script>#}
-
 
     {% block css_extra %}{% endblock %}
 </head>
@@ -36,9 +34,9 @@
         <a class="navbar-brand" href="{{ url('home') }}">
             <img src="{{ static('images/logo.png') }}" width="30" height="30"
                  class="d-inline-block align-top" alt="">
-            WIAI Zitate
+            {{ site_name }}
         </a>
-        <small class="text-muted">a WIAI Original</small>
+        <small class="text-muted">a WIAI Originals</small>
         <a href="{{ url('logout') }}">Logout</a>
     </nav>
     <div class="container-fluid">

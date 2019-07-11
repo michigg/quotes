@@ -33,11 +33,11 @@ def home(request):
         author_form = AuthorsForm()
         authors = Author.objects.all().order_by('name')
         today_date = datetime.today()
-        return render(request, 'home.jinja',
+        return render(request, 'home.jinja2',
                       {'quote_form': quote_form, 'statement_formset': statement_formset,
                        'authorform': author_form, 'authors': authors, 'user_groups': groups,
                        'today_date': today_date})
-    return render(request, 'home.jinja')
+    return render(request, 'home.jinja2')
 
 
 @login_required
