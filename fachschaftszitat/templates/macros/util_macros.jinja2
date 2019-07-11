@@ -27,13 +27,13 @@
                                 <option value="{{ author.id }}">{{ author.name }}</option>
                             {% endfor %}
                         </select>
-                        <input class="form-control col-8" type="text" name="form-0-text" maxlength="1024"
+                        <input class="form-control col-7 col-sm-8" type="text" name="form-0-text" maxlength="1024"
                                id="id_form-0-text"
                                required/>
 
                         <input type="hidden" name="form-0-id" id="id_form-0-id" class=""/>
                         <button title="Weiteren Autor hinzufügen"
-                                class="btn btn-success btn-block col-1 add-form-row">+
+                                class="btn btn-success btn-block col-2 col-sm-1 add-form-row">+
                         </button>
                     </div>
                 </div>
@@ -80,6 +80,10 @@
 {% endmacro %}
 
 {% macro get_quote_search() -%}
-    Suche: <input type="text" id="search" class="ml-2 mr-2" autofocus/>
-    <button id="reset" title="Suche zurücksetzen">✕</button>
+    <div class="form-group">
+        <input type="text" class="form-control" id="search" aria-describedby="emailHelp"
+               placeholder="Suche">
+         <label for="search">Suche</label>
+    </div>
+    <button id="reset" title="Suche zurücksetzen" class="search-delete-btn">✕</button>
 {% endmacro %}
