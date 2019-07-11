@@ -16,7 +16,7 @@ from django_auth_ldap.config import LDAPSearch, GroupOfNamesType
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 DOMAIN = os.environ['DOMAIN']
-SITE_NAME = os.environ['SITE_NAME']
+SITE_NAME = str(os.environ['SITE_NAME']).strip('"')
 SECRET_KEY = os.environ['SECRET_KEY']
 DEBUG = bool(os.environ.get('DEBUG', False))
 ALLOWED_HOSTS = os.environ['ALLOWED_HOSTS'].split(',')
