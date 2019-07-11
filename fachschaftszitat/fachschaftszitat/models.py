@@ -1,5 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import Group
+from django.db.models.signals import pre_delete
+from django.dispatch import receiver
 
 MAX_QUOTE_LENGTH = 1024
 MAX_AUTHOR_LENGTH = 32
@@ -30,6 +32,12 @@ class Quote(models.Model):
 
     def __str__(self):
         return f'{self.id}: {", ".join(str(seg) for seg in self.statements.all())}'
+
+
+@receiver(pre_delete, sender=Quote)
+def delete_related_statements(sender, instance, using, **kwargs):
+    for statement in instance.statements.all():
+        statement.delete()
 
 
 class Author(models.Model):
