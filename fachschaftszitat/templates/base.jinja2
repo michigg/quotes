@@ -10,7 +10,7 @@
     <title>Fachschaftszitate</title>
     <link rel="icon"
           type="image/png"
-          href="{{ static('images/logo.png')  }}">
+          href="{{ static('images/logo.png') }}">
     <meta name="author" content="Michael Götz"/>
     {% block js_extra %}{% endblock %}
     <!-- Bootstrap CSS -->
@@ -37,7 +37,10 @@
             {{ site_name }}
         </a>
         <small class="text-muted">a WIAI Originals</small>
-        <a href="{{ url('logout') }}">Logout</a>
+        <div>
+            <a class="pr-2" href="{{ url('admin:index') }}">Admin</a>
+            <a href="{{ url('logout') }}">Logout</a>
+        </div>
     </nav>
     <div class="container-fluid">
         <div class="row">{% block bottom_nav %}{% endblock %}</div>
