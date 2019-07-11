@@ -1,0 +1,77 @@
+{% macro get_quote_add_form(statement_formset, user_groups, today_date, authors) -%}
+    <form id="quote-form" method="POST" action="{{ url('register_quote') }}">
+        <div class="row justify-content-center">
+            {{ statement_formset.management_form }}
+            {% if user_groups|length > 1 %}
+                <select class="custom-select col-11 mb-1" name="owner" required id="id_owner">
+                    <option value="" selected>---------</option>
+                    {% for group in user_groups %}
+                        <option value="{{ group.id }}">{{ group.name }}</option>
+                    {% endfor %}
+                </select>
+            {% else %}
+                <select class="custom-select col-11 mb-1" name="owner" required id="id_owner">
+                    {% for group in user_groups %}
+                        <option value="{{ group.id }}">{{ group.name }}</option>
+                    {% endfor %}
+                </select>
+            {% endif %}
+            {% for form in statement_formset %}
+                <div class="conversation-particle col-11 mb-1">
+                    <div class="form-group row mb-0">
+                        <select class="custom-select col-3 author-select-box" name="form-0-author"
+                                id="id_form-0-author"
+                                required>
+                            <option value="" selected>---------</option>
+                            {% for author in authors %}
+                                <option value="{{ author.id }}">{{ author.name }}</option>
+                            {% endfor %}
+                        </select>
+                        <input class="form-control col-8" type="text" name="form-0-text" maxlength="1024"
+                               id="id_form-0-text"
+                               required/>
+
+                        <input type="hidden" name="form-0-id" id="id_form-0-id" class=""/>
+                        <button title="Weiteren Autor hinzufügen"
+                                class="btn btn-success btn-block col-1 add-form-row">+
+                        </button>
+                    </div>
+                </div>
+            {% endfor %}
+            <input class="col-11 col-md-4 mb-1" type="date" name="timestamp"
+                   value="{{ today_date.strftime('%Y-%m-%d') }}"
+                   required id="id_timestamp">
+            <input class="btn btn-outline-primary btn-block col-11 col-md-7 mt-0 mb-1"
+                   type="submit" value="Save"/>
+        </div>
+    </form>
+{% endmacro %}
+
+{% macro get_author_add_form() -%}
+    <form id="author-form" method="POST" action="{{ url('register_author') }} ">
+        <input type="text" name="name" maxlength="32" required="" id="id_name" class="w-100 mb-1">
+        <input class="btn btn-outline-primary btn-block align-items-end" type="submit" value="Save"/>
+    </form>
+{% endmacro %}
+
+{% macro get_list_headline() -%}
+    <div class="row">
+        <div class="col-3"><strong>Datum</strong></div>
+        <div class="col-6">
+            <div class="row">
+                <div class="col-3 ">
+                    <strong>Quelle</strong>
+                </div>
+                <div class="col-9">
+                    <strong>Zitat</strong>
+                </div>
+            </div>
+        </div>
+        <div class="col-3"><strong>Gruppe</strong></div>
+    </div>
+{% endmacro %}
+
+{% macro get_quote_search() -%}
+    Suche: <input type="text" id="search" class="ml-2 mr-2" autofocus/>
+    <button id="reset" title="Suche zurücksetzen">✕</button>
+{% endmacro %}

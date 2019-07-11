@@ -26,3 +26,11 @@ footer a:active {
         justify-content: flex-end;
     }
 }
+
+.quote {
+    box-shadow: 1px 1px 4px rgba(0, 0, 0, .6);
+    padding: 5px 5px;
+    margin-bottom: 5px;
+    margin-left: 1px;
+    margin-right: 1px;
+}
