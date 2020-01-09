@@ -1,7 +1,5 @@
-Django==2.0.1
+Django==3.0.2
 django-jinja==2.4.1
-Jinja2==2.10
-MarkupSafe==1.0
-pytz==2017.3
-djangorestframework==3.9.0
-django-auth-ldap==1.7.0
+Jinja2==2.10.3
+djangorestframework==3.11.0
+django-auth-ldap==2.1.0

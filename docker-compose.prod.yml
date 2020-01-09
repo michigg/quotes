@@ -1,4 +1,4 @@
-version: "3"
+version: "2"
 
 networks:
  pg_db:
@@ -13,8 +13,6 @@ services:
   networks:
     - default
     - pg_db
-  volumes:
-   - ./src:/quotes
   env_file:
    - docker.env
   ports:
