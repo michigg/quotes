@@ -32,21 +32,37 @@
                                 </div>
                                 <div class="quote-group col-7 col-lg-4 text-right">
                                     {{ owner.name }}
+                                    {{#is_creator }}
+                                    <button onclick="deleteQuote('{{ delete_url }}')"
+                                            class="btn btn-outline-danger trash d-lg-none ml-3"
+                                            ><i class="fas fa-trash"></i>
+                                    </button>
+                                    {{/is_creator }}
                                 </div>
                             </div>
                             <hr class="mt-1 mb-2 d-block d-lg-none"/>
                         </div>
-                        <div class="col-12 col-lg-9">
+                        <div class="col-12 col-lg-8">
                             {{#each statements }}
                             <div class="row">
                                 <div class="quote-author col-4 col-sm-2">
                                     {{ this.author.name }}
                                 </div>
-                                <div class="quote-statement col-8 col-sm-10">
-                                    {{ this.text }}
+                                <div class="quote-statement col-8 col-sm-10 text-left">
+                                    <span class="float-left">{{ this.text }}</span>
                                 </div>
                             </div>
                             {{/each}}
+                        </div>
+                        <div class="col-lg-1">
+                            <p>
+                                {{#is_creator }}
+                                <button onclick="deleteQuote('{{ delete_url }}')"
+                                        class="btn btn-outline-danger trash text-right d-none d-lg-block"
+                                ><i class="fas fa-trash"></i>
+                                </button>
+                                {{/is_creator }}
+
                         </div>
                     </div>
                 </script>
