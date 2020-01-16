@@ -1,5 +1,5 @@
 from django.db import models
-from django.contrib.auth.models import Group
+from django.contrib.auth.models import Group, User
 from django.db.models.signals import pre_delete
 from django.dispatch import receiver
 
@@ -27,6 +27,7 @@ class Statement(models.Model):
 class Quote(models.Model):
     id = models.AutoField(primary_key=True)
     owner = models.ForeignKey(Group, on_delete=models.PROTECT)
+    creator = models.ForeignKey(User, on_delete=models.PROTECT)
     timestamp = models.DateField(null=False, blank=False)
     statements = models.ManyToManyField('Statement')
 
