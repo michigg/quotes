@@ -23,10 +23,10 @@ class GroupSerializer(serializers.ModelSerializer):
         fields = ('id', 'name')
 
 
-class QuoteSerializer(serializers.ModelSerializer):
+class QuoteSerializer(serializers.Serializer):
+    id = serializers.IntegerField()
+    timestamp = serializers.DateField()
     statements = StatementSerializer(many=True)
     owner = GroupSerializer()
-
-    class Meta:
-        model = Quote
-        fields = ('id', 'timestamp', 'statements', 'owner')
+    is_creator = serializers.BooleanField()
+    delete_url = serializers.CharField()

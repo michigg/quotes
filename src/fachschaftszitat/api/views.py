@@ -1,11 +1,11 @@
-from django.templatetags.static import static
+from django.urls import reverse
 from rest_framework import views, status, generics
 from rest_framework.decorators import permission_classes
-from rest_framework.permissions import AllowAny, IsAuthenticated
+from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 
-from .serializer import QuoteSerializer, AuthorSerializer
 from fachschaftszitat.models import Quote, Author
+from .serializer import QuoteSerializer, AuthorSerializer
 
 
 @permission_classes((IsAuthenticated,))
@@ -22,9 +22,31 @@ class ApiGetLatestQuote(views.APIView):
 @permission_classes((IsAuthenticated,))
 class ApiGetQuotes(generics.ListAPIView):
     def get_queryset(self):
-        return Quote.objects.filter(owner__in=self.request.user.groups.all()).order_by('-timestamp')
+        quotes = Quote.objects.filter(owner__in=self.request.user.groups.all()).order_by('-timestamp')
+        quotes_wrapper = [
+            {"id": quote.id,
+             "timestamp": quote.timestamp,
+             "owner": quote.owner,
+             "statements": quote.statements.all(),
+             "is_creator": quote.creator.id == self.request.user.id,
+             "delete_url": reverse("fachschaftszitat.api:delete-quote", args=[quote.id])}
+            for quote in quotes]
+        return quotes_wrapper
 
     serializer_class = QuoteSerializer
+
+
+@permission_classes((IsAuthenticated,))
+class ApiRemoveQuote(generics.RetrieveUpdateDestroyAPIView):
+    queryset = Quote.objects.all()
+    serializer_class = QuoteSerializer
+
+    def destroy(self, request, *args, **kwargs):
+        instance = self.get_object()
+        if instance.creator.id != self.request.user.id:
+            return Response("Wrong user. Cannot delete Quote, because you are not the creator.",
+                            status=status.HTTP_400_BAD_REQUEST)
+        return super().destroy(request, *args, **kwargs)
 
 
 class ApiGetAuthors(generics.ListAPIView):
