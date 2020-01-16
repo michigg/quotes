@@ -11,6 +11,10 @@ from core.settings import STATICFILES_DIRS, STATIC_URL
 from fachschaftszitat.forms import QuoteForm, AuthorsForm, StatementFormset
 from fachschaftszitat.models import Quote, Author, Statement
 
+import logging
+
+logger = logging.getLogger(__name__)
+
 
 def get_random_sucess_url():
     file = random.choice(os.listdir(os.path.join(STATICFILES_DIRS[0], 'images/success')))
@@ -42,6 +46,7 @@ def home(request):
 
 @login_required
 def registration_quote(request):
+    logger.error("call")
     if request.user.is_authenticated and request.method == 'POST':
         quote_form = QuoteForm(request.POST)
         statement_form = StatementFormset(request.POST)
@@ -52,7 +57,10 @@ def registration_quote(request):
                 pre_save.order_id = order_id
                 order_id += 1
                 pre_save.save()
-            quote = quote_form.save()
+    #         logger.info("statements_savedee")
+            quote = quote_form.save(commit=False)
+            quote.creator = request.user
+            quote.save()
             quote.statements.add(*pre_saves)
             quote.save()
             return JsonResponse({'url': get_random_sucess_url()}, status=201)
