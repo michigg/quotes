@@ -18,7 +18,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 DOMAIN = os.environ['DOMAIN']
 SITE_NAME = str(os.environ['SITE_NAME']).strip('"')
 SECRET_KEY = os.environ['SECRET_KEY']
-DEBUG = bool(os.environ.get('DEBUG', False))
+DEBUG = os.environ.get('DEBUG', "False") == "True"
 ALLOWED_HOSTS = os.environ['ALLOWED_HOSTS'].split(',')
 
 LOGIN_URL = 'login'
@@ -167,7 +167,6 @@ AUTH_LDAP_ALWAYS_UPDATE_USER = True
 
 LOGGING = {
     'version': 1,
-    'disable_existing_loggers': True,
     'formatters': {
         'verbose': {
             'format': '%(levelname)s %(asctime)s %(module)s %(process)d %(thread)d %(message)s'
@@ -193,7 +192,7 @@ LOGGING = {
         }
     },
     'loggers': {
-        'django_auth_ldap': {
+        '*': {
             'level': 'DEBUG',
             'handlers': ['console'],
         },
