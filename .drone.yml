@@ -52,7 +52,7 @@ steps:
       from_secret: docker_username
     password:
       from_secret: docker_password
-    repo: michigg/lama
+    repo: michigg/quotes
     tags:
       - latest
       - ${DRONE_TAG}
