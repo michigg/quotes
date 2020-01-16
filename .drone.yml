@@ -59,7 +59,7 @@ steps:
   depends_on:
   - fetch
   - build
-  - test
+#  - test
 
 - name: publish_github
   image: plugins/github-release
@@ -78,7 +78,7 @@ steps:
   depends_on:
   - fetch
   - build
-  - test
+#  - test
     
 - name: send telegram notification
   image: appleboy/drone-telegram
@@ -100,7 +100,7 @@ steps:
   depends_on:
   - fetch
   - build
-  - test
+#  - test
   - publish_dockerhub
   - publish_github
 
