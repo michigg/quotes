@@ -21,6 +21,7 @@ Zitate Zitate Zitate
 *** for contributors-url, forks-url, etc. This is an optional, concise syntax you may use.
 *** https://www.markdownguide.org/basic-syntax/#reference-style-links
 -->
+![Drone (self-hosted)](https://img.shields.io/drone/build/michigg/quotes?server=https%3A%2F%2Fdrone.github.michigg.de&style=for-the-badge)
 [![Contributors][contributors-shield]][contributors-url]
 [![Forks][forks-shield]][forks-url]
 [![Stargazers][stars-shield]][stars-url]
@@ -80,14 +81,15 @@ To get a local copy up and running follow these simple example steps.
 
 <!-- MARKDOWN LINKS & IMAGES -->
 <!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
-[contributors-shield]: https://img.shields.io/github/contributors/michigg/quotes.svg?style=flat-square
+[contributors-shield]: https://img.shields.io/github/contributors/michigg/quotes.svg?style=for-the-badge
 [contributors-url]: https://github.com/michigg/quotes/graphs/contributors
-[forks-shield]: https://img.shields.io/github/forks/michigg/quotes.svg?style=flat-square
+[forks-shield]: https://img.shields.io/github/forks/michigg/quotes.svg?style=for-the-badge
 [forks-url]: https://github.com/michigg/quotes/network/members
-[stars-shield]: https://img.shields.io/github/stars/michigg/quotes.svg?style=flat-square
+[stars-shield]: https://img.shields.io/github/stars/michigg/quotes.svg?style=for-the-badge
 [stars-url]: https://github.com/michigg/quotes/stargazers
-[issues-shield]: https://img.shields.io/github/issues/michigg/quotes.svg?style=flat-square
+[issues-shield]: https://img.shields.io/github/issues/michigg/quotes.svg?style=for-the-badge
 [issues-url]: https://github.com/michigg/quotes/issues
-[license-shield]: https://img.shields.io/github/license/michigg/quotes.svg?style=flat-square
+[license-shield]: https://img.shields.io/github/license/michigg/quotes.svg?style=for-the-badge
 [license-url]: https://github.com/michigg/lama/blob/master/LICENSE.md
 [product-screenshot]: images/screenshot.png
+
