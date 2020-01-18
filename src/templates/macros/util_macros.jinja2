@@ -1,56 +1,64 @@
 {% macro get_quote_add_form(statement_formset, user_groups, today_date, authors) -%}
     <form id="quote-form" method="POST" action="{{ url('register_quote') }}">
-        <div class="row justify-content-center">
+        <div class="form-row mb-1">
             {{ statement_formset.management_form }}
             {% if user_groups|length > 1 %}
-                <select class="custom-select col-11 mb-1" name="owner" required id="id_owner">
+                <select class="custom-select col-12 rounded-0" name="owner" required id="id_owner">
                     <option value="" selected>---------</option>
                     {% for group in user_groups %}
                         <option value="{{ group.id }}">{{ group.name }}</option>
                     {% endfor %}
                 </select>
             {% else %}
-                <select class="custom-select col-11 mb-1" name="owner" required id="id_owner">
+                <select class="custom-select col-12 rounded-0" name="owner" required id="id_owner">
                     {% for group in user_groups %}
                         <option value="{{ group.id }}">{{ group.name }}</option>
                     {% endfor %}
                 </select>
             {% endif %}
-            {% for form in statement_formset %}
-                <div class="conversation-particle col-11 mb-1">
-                    <div class="form-group row mb-0">
-                        <select class="custom-select col-3 author-select-box" name="form-0-author"
-                                id="id_form-0-author"
-                                required>
-                            <option value="" selected>---------</option>
-                            {% for author in authors %}
-                                <option value="{{ author.id }}">{{ author.name }}</option>
-                            {% endfor %}
-                        </select>
-                        <input class="form-control col-7 col-sm-8" type="text" name="form-0-text" maxlength="1024"
-                               id="id_form-0-text"
-                               required/>
+        </div>
 
-                        <input type="hidden" name="form-0-id" id="id_form-0-id" class=""/>
-                        <button title="Weiteren Autor hinzufügen"
-                                class="btn btn-success btn-block col-2 col-sm-1 add-form-row">+
-                        </button>
-                    </div>
+        {% for form in statement_formset %}
+            <div class="conversation-particle form-row mb-1">
+                <div class="col-3 p-0">
+                    <select class="custom-select author-select-box rounded-0" name="form-0-author"
+                            id="id_form-0-author"
+                            required>
+                        <option value="" selected>---------</option>
+                        {% for author in authors %}
+                            <option value="{{ author.id }}">{{ author.name }}</option>
+                        {% endfor %}
+                    </select>
                 </div>
-            {% endfor %}
-            <input class="col-11 col-md-4 mb-1" type="date" name="timestamp"
+                <div class="col-7 col-sm-8">
+                    <input class="form-control rounded-0" type="text" name="form-0-text"
+                           maxlength="1024"
+                           id="id_form-0-text"
+                           required/>
+                </div>
+
+                <input type="hidden" name="form-0-id" id="id_form-0-id" class=""/>
+                <button title="Weiteren Autor hinzufügen"
+                        class="col-2 col-sm-1 btn btn-success btn-block rounded-0 add-form-row">+
+                </button>
+            </div>
+        {% endfor %}
+        <div class="form-row mb-1">
+            <input class="col-12 col-md-5 mb-1" type="date" name="timestamp"
                    value="{{ today_date.strftime('%Y-%m-%d') }}"
                    required id="id_timestamp">
-            <input class="btn btn-outline-primary btn-block col-11 col-md-7 mt-0 mb-1"
-                   type="submit" value="Save"/>
+            <div class="submit-btn-quote col-12 col-md-7 p-0">
+                <input class="btn btn-outline-primary btn-block rounded-0"
+                       type="submit" value="Save"/>
+            </div>
         </div>
     </form>
 {% endmacro %}
 
 {% macro get_author_add_form() -%}
     <form id="author-form" method="POST" action="{{ url('register_author') }} ">
-        <input type="text" name="name" maxlength="32" required="" id="id_name" class="w-100 mb-1">
-        <input class="btn btn-outline-primary btn-block align-items-end" type="submit" value="Save"/>
+        <input type="text" placeholder="Author" name="name" maxlength="32" required="" id="id_name" class="form-control w-100 mb-1 rounded-0">
+        <input class="btn btn-outline-primary btn-block rounded-0 align-items-end" type="submit" value="Save"/>
     </form>
 {% endmacro %}
 
@@ -83,7 +91,7 @@
     <div class="form-group">
         <input type="text" class="form-control rounded-0" id="search" aria-describedby="emailHelp"
                placeholder="Suche">
-         <label for="search">Suche</label>
+        <label for="search">Suche</label>
     </div>
     <button id="reset" title="Suche zurücksetzen" class="btn btn-outline-danger rounded-0 search-delete-btn">✕</button>
 {% endmacro %}

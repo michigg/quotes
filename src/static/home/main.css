@@ -25,6 +25,10 @@ footer a:active {
     .quote-search {
         justify-content: flex-end;
     }
+
+    .submit-btn-quote{
+        padding-left: 5px !important;
+    }
 }
 
 @media only screen and (max-width: 767px) {
@@ -32,6 +36,8 @@ footer a:active {
         justify-content: flex-start;
     }
 }
+
+
 
 .quote {
     box-shadow: 1px 1px 4px rgba(0, 0, 0, .6);
