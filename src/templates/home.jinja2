@@ -2,14 +2,18 @@
 {% import 'macros/util_macros.jinja2' as mutils %}
 
 {% block content %}
-    <div class="row mt-2 justify-content-center">
-        <div class="col-12 col-md-8 col-lg-7 col-xl-6 bg-white mb-2 py-2">
-            <h2 class="mb-3 h3">Neues Zitat hinzufügen</h2>
-            {{ mutils.get_quote_add_form(statement_formset, user_groups, today_date, authors) }}
+    <div class="row mt-2 justify-content-center mb-2">
+        <div class="col-12 col-md-8 col-lg-7 col-xl-6 bg-white">
+            <div class="card h-100 px-4 py-3">
+                <h2 class="mb-3 h3">Neues Zitat hinzufügen</h2>
+                {{ mutils.get_quote_add_form(statement_formset, user_groups, today_date, authors) }}
+            </div>
         </div>
-        <div class="col-12 col-md-4 col-lg-4 col-xl-3 bg-white mb-2 py-2">
-            <h2 class="mb-3 h3">Neuen Autor hinzufügen</h2>
-            {{ mutils.get_author_add_form() }}
+        <div class="col-12 col-md-4 col-lg-4 col-xl-3 bg-white ">
+            <div class="card h-100 px-4 py-3">
+                <h2 class="mb-3 h3">Neuen Autor hinzufügen</h2>
+                {{ mutils.get_author_add_form() }}
+            </div>
         </div>
     </div>
     <div class="row mb-2 justify-content-center">
@@ -21,7 +25,6 @@
             {{ mutils.get_list_headline() }}
             <hr class="m-2"/>
             <div id="quotes-wrapper">
-                Handlebars.js code
                 {% raw %}
                 <script id="entry-template" type="text/x-handlebars-template">
                     <div class="quote row">
@@ -34,8 +37,8 @@
                                     {{ owner.name }}
                                     {{#is_creator }}
                                     <button onclick="deleteQuote('{{ delete_url }}')"
-                                            class="btn btn-outline-danger trash d-lg-none ml-3"
-                                            ><i class="fas fa-trash"></i>
+                                            class="btn btn-outline-danger rounded-0 trash d-lg-none ml-3"
+                                    ><i class="fas fa-trash"></i>
                                     </button>
                                     {{/is_creator }}
                                 </div>
@@ -58,7 +61,7 @@
                             <p>
                                 {{#is_creator }}
                                 <button onclick="deleteQuote('{{ delete_url }}')"
-                                        class="btn btn-outline-danger trash text-right d-none d-lg-block"
+                                        class="btn btn-outline-danger trash text-right rounded-0 d-none d-lg-block"
                                 ><i class="fas fa-trash"></i>
                                 </button>
                                 {{/is_creator }}
