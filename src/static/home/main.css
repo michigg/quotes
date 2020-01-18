@@ -2,9 +2,18 @@ html {
     min-height: 100vh;
 }
 
+body {
+    margin-bottom: calc(var(--footer-height-y) + 10px);
+}
+
 footer {
     width: 100%;
     font-size: 12px;
+    position: fixed;
+    bottom: 0;
+    vertical-align: middle;
+    height: var(--footer-height-y);
+    line-height: 40px;
 }
 
 footer a:link,
@@ -26,7 +35,7 @@ footer a:active {
         justify-content: flex-end;
     }
 
-    .submit-btn-quote{
+    .submit-btn-quote {
         padding-left: 5px !important;
     }
 }
@@ -36,7 +45,6 @@ footer a:active {
         justify-content: flex-start;
     }
 }
-
 
 
 .quote {
@@ -59,13 +67,15 @@ footer a:active {
     margin-left: 3px;
 }
 
-.custom-select{
+.custom-select {
     height: calc(2.50rem + 2px);
 }
+
 /*FLOATING LABELS*/
 :root {
     --input-padding-x: .75rem;
     --input-padding-y: .6rem;
+    --footer-height-y: 40px
 }
 
 
