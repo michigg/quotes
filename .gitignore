@@ -1,8 +1,5 @@
 .idea/
 *.sqlite3
-__pycache__/
-migrations/
-
 
 # Created by https://www.gitignore.io/api/django,pycharm
 
