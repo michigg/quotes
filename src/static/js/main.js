@@ -80,7 +80,7 @@ function cloneMore(selector, prefix) {
         .removeClass('btn-success').addClass('btn-danger')
         .removeClass('add-form-row').addClass('remove-form-row')
         .attr('title', "Autor entfernen")
-        .html('<span aria-hidden="true">-</span>');
+        .html('<i class="fas fa-minus"></i>');
     return false;
 }
 
