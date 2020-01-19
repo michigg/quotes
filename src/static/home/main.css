@@ -39,7 +39,10 @@ footer a:active {
         padding-left: 5px !important;
     }
 }
-submit-btn-quote@media only screen and (max-width: 767px) {
+
+submit-btn-quote
+
+@media only screen and (max-width: 767px) {
     .quote-search {
         justify-content: flex-start;
     }
@@ -144,3 +147,13 @@ submit-btn-quote@media only screen and (max-width: 767px) {
     color: #777;
 }
 
+/** **************************************************************************************************************** **/
+/** ********                                       MODAL                                                    ******** **/
+/** **************************************************************************************************************** **/
+.modal-content {
+    border: none;
+}
+
+.modal-body {
+    padding: 0;
+}
