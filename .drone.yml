@@ -48,8 +48,12 @@ steps:
   commands:
     - echo 'VERSION_TAG = "${DRONE_TAG}_${CI_BUILD_NUMBER}"' > ./src/core/version.py
     - git add *
+    - git config --global user.email ""
+    - git config --global user.name "Drone CI"
     - git commit -m "ci version tag update"
     - git push origin master
+#  when:
+#    event: tag
   depends_on:
     - fetch
 
