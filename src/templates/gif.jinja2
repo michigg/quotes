@@ -95,4 +95,9 @@
     {#            </div>#}
     {#        </div>#}
     {#    </div>#}
+
+
+    {% block js_extra_footer %}
+        <script src="{{ static('js/gif_form.js') }}"></script>
+    {% endblock %}
 {% endblock %}
