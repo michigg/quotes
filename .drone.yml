@@ -46,7 +46,7 @@ steps:
 - name: set_versiontag
   image: alpine/git
   commands:
-    - echo 'VERSION_TAG = "${DRONE_TAG}_${CI_BUILD_NUMBER}"' > ./src/core/version.py
+    - echo 'VERSION_TAG = "${DRONE_TAG}_${CI_BUILD_NUMBER}"' > /drone/src/quotes/src/core/version.py
 #  when:
 #    event: tag
   depends_on:
