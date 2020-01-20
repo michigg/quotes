@@ -2,14 +2,14 @@
 {% import 'macros/util_macros.jinja2' as mutils %}
 
 {% block content %}
-    <div class="row mt-2 justify-content-center mb-2">
-        <div class="col-12 col-md-8 col-lg-7 col-xl-6 bg-white">
+    <div class="row mt-2 justify-content-center">
+        <div class="col-12 col-md-8 col-lg-7 col-xl-6 bg-white mb-2">
             <div class="card h-100 px-4 py-3">
                 <h2 class="mb-3 h3">Neues Zitat hinzufügen</h2>
                 {{ mutils.get_quote_add_form(statement_formset, user_groups, today_date, authors) }}
             </div>
         </div>
-        <div class="col-12 col-md-4 col-lg-4 col-xl-3 bg-white ">
+        <div class="col-12 col-md-4 col-lg-4 col-xl-3 bg-white mb-2">
             <div class="card h-100 px-4 py-3">
                 <h2 class="mb-3 h3">Neuen Autor hinzufügen</h2>
                 {{ mutils.get_author_add_form() }}
@@ -65,7 +65,6 @@
                                 ><i class="fas fa-trash"></i>
                                 </button>
                                 {{/is_creator }}
-
                         </div>
                     </div>
                 </script>

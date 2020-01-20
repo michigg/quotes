@@ -40,8 +40,6 @@ footer a:active {
     }
 }
 
-submit-btn-quote
-
 @media only screen and (max-width: 767px) {
     .quote-search {
         justify-content: flex-start;
@@ -60,6 +58,7 @@ submit-btn-quote
     box-shadow: 1px 1px 4px rgba(0, 0, 0, .6);
     padding: 5px 5px;
     margin-bottom: 5px;
+    border-radius: 0;
 }
 
 .search-delete-btn {
