@@ -84,6 +84,7 @@ def registration_gif(request):
         if form.is_valid():
             gif = form.save(commit=False)
             gif.creator = request.user
+            gif.save()
             return JsonResponse({'url': get_random_sucess_url()}, status=201)
         return JsonResponse({'url': get_random_error_url()}, status=400)
     else:

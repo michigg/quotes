@@ -57,3 +57,6 @@ class Gif(models.Model):
     type = models.CharField(max_length=8, choices=TYPE_CHOICES)
     video_url = models.URLField(unique=True)
     creator = models.ForeignKey(User, on_delete=models.PROTECT)
+
+    def __str__(self):
+        return f'{self.type} - {self.creator} - {self.video_url}'
