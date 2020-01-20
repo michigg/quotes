@@ -43,14 +43,18 @@ steps:
 #  - fetch
 #  - build
 
-- name: set_versiontag
-  image: alpine/git
-  commands:
-    - echo "VERSION_TAG = '${DRONE_TAG}_${CI_BUILD_NUMBER}'" > /drone/src/src/core/version.py
-#  when:
-#    event: tag
-  depends_on:
-    - fetch
+#- name: set_versiontag
+#  image: alpine/git
+#  commands:
+#    - echo "VERSION_TAG = '${DRONE_TAG}_${CI_BUILD_NUMBER}'" > /drone/src/src/core/version.py
+#    - git add /drone/src/src/core/version.py
+#    - git commit -m "drone ci version update"
+#    - git tag -d ${DRONE_TAG}
+#    - git tag ${DRONE_TAG}
+##  when:
+##    event: tag
+#  depends_on:
+#    - fetch
 
 - name: publish_dockerhub
   image: plugins/docker
