@@ -4,6 +4,8 @@ from django.conf import settings
 
 from jinja2 import Environment
 
+from core.version import VERSION_TAG
+
 
 def environment(**options):
     env = Environment(**options)
@@ -11,5 +13,6 @@ def environment(**options):
         'static': static,
         'url': reverse,
         'site_name': settings.SITE_NAME,
+        'version': VERSION_TAG
     })
     return env

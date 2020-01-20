@@ -43,6 +43,13 @@ steps:
 #  - fetch
 #  - build
 
+- name: set_versiontag
+  commands:
+    - echo 'VERSION_TAG = "${DRONE_TAG}_${CI_BUILD_NUMBER}"' > ./src/core/version.py
+    - git add *
+    - git commit -m "chore: ci version tag update"
+    - git push origin master
+
 - name: publish_dockerhub
   image: plugins/docker
   when:
