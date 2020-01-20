@@ -43,8 +43,12 @@
         {{ site_name }}
     </a>
     <div>
-        <a class="pr-2" href="{{ url('admin:index') }}">Admin</a>
-        <a href="{{ url('logout') }}">Logout</a>
+        <a class="pr-2" href="{{ url('admin:index') }}" ata-toggle="tooltip" data-placement="bottom"
+           title="Gif Registration"><i class="fas fa-video"></i> Gifs</a>
+        <a class="pr-2" href="{{ url('admin:index') }}" ata-toggle="tooltip" data-placement="bottom"
+           title="Adminbereich"><i class="fas fa-crown"></i> Admin</a>
+        <a href="{{ url('logout') }}" data-toggle="tooltip" data-placement="bottom" title="Logout"><i
+                class="fas fa-sign-out-alt"></i> Logout</a>
     </div>
 </nav>
 <div class="container-fluid">
