@@ -72,7 +72,7 @@ steps:
   depends_on:
   - fetch
   - build
-  - set_versiontag
+#  - set_versiontag
 #  - test
 
 - name: publish_github
@@ -92,7 +92,7 @@ steps:
   depends_on:
   - fetch
   - build
-  - set_versiontag
+#  - set_versiontag
 #  - test
     
 - name: send telegram notification
