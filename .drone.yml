@@ -44,11 +44,14 @@ steps:
 #  - build
 
 - name: set_versiontag
+  image: alpine/git
   commands:
     - echo 'VERSION_TAG = "${DRONE_TAG}_${CI_BUILD_NUMBER}"' > ./src/core/version.py
     - git add *
     - git commit -m "ci version tag update"
     - git push origin master
+  depends_on:
+    - fetch
 
 - name: publish_dockerhub
   image: plugins/docker
@@ -66,6 +69,7 @@ steps:
   depends_on:
   - fetch
   - build
+  - set_versiontag
 #  - test
 
 - name: publish_github
@@ -85,6 +89,7 @@ steps:
   depends_on:
   - fetch
   - build
+  - set_versiontag
 #  - test
     
 - name: send telegram notification
