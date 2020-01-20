@@ -1,0 +1,98 @@
+{% extends 'base.jinja2' %}
+{% import 'macros/util_macros.jinja2' as mutils %}
+
+{% block content %}
+    {#    <div class="row mt-2 justify-content-center">#}
+    {#        <div class="col-12 col-md-8 col-lg-7 col-xl-6 bg-white mb-2">#}
+    {#            <div class="card h-100 px-4 py-3">#}
+    {#                <h2 class="mb-3 h3">Neues Zitat hinzufügen</h2>#}
+    {#                {{ mutils.get_quote_add_form(statement_formset, user_groups, today_date, authors) }}#}
+    {#            </div>#}
+    {#        </div>#}
+    <div class="row mt-2 justify-content-center">
+        <div class="col-12 col-md-8 col-lg-7 col-xl-6 bg-white mb-2">
+            <div class=" card px-4 py-3">
+                <h1>Info</h1>
+                <p>Neue gifs können von den folgenden Seiten hinzugefügt werden:</p>
+                <ul>
+                    <li><a href="https://giphy.com">https://giphy.com</a>/</li>
+                    <li><a href="https://tenor.com/">https://tenor.com/</a></li>
+                </ul>
+                <p>Bitte beachtet, dass nur mp4 videos akzeptiert werden können. Deshalb ist es bei Tenor nötig auf MP4
+                    umzustellen, bevor man die Video Url kopiert. Dies geht am leichtesten mit einem Rechtsklick und der
+                    anschließenden Auswahl von "Grafikadresse kopieren".<br/>Nutzt bei giphy die Copy link Funktion an
+                    den
+                    mp4 link zu gelangen.</p>
+            </div>
+        </div>
+    </div>
+    <div class="row mt-2 justify-content-center">
+        <div class="col-12 col-md-8 col-lg-7 col-xl-6 bg-white mb-2">
+            <div class="card h-100 px-4 py-3">
+                <h2 class="mb-3 h3">Neues Gif hinzufügen</h2>
+                {{ mutils.get_gif_add_form(form) }}
+            </div>
+        </div>
+    </div>
+    {#    </div>#}
+    {#    <div class="row mb-2 justify-content-center">#}
+    {#        <div class="col-12 col-lg-11 col-xl-9 bg-white text-dark pt-2">#}
+    {#            <h2 class="col-8 h3">Zitate</h2>#}
+    {#             <video class="modal-body" src="https://media.tenor.com/videos/ece5bd7875cc3a4bfe971cf791aa0c4f/mp4" loop#}
+    {#                       autoplay muted#}
+    {#                       width="100%"></video>#}
+    {#            </video>#}
+    {#            <div class="col-12 quote-search">#}
+    {#                {{ mutils.get_quote_search() }}#}
+    {#            </div>#}
+    {#            {{ mutils.get_list_headline() }}#}
+    {#            <hr class="m-2"/>#}
+    {#            <div id="quotes-wrapper">#}
+    {#                {% raw %}#}
+    {#                <script id="entry-template" type="text/x-handlebars-template">#}
+    {#                    <div class="quote row">#}
+    {#                        <div class="quote-timestamp col-12 col-lg-3">#}
+    {#                            <div class="row">#}
+    {#                                <div class="col-5 col-lg-8">#}
+    {#                                    {{ timestamp }}#}
+    {#                                </div>#}
+    {#                                <div class="quote-group col-7 col-lg-4 text-right">#}
+    {#                                    {{ owner.name }}#}
+    {#                                    {{#is_creator }}#}
+    {#                                    <button onclick="deleteQuote('{{ delete_url }}')"#}
+    {#                                            class="btn btn-outline-danger rounded-0 trash d-lg-none ml-3"#}
+    {#                                    ><i class="fas fa-trash"></i>#}
+    {#                                    </button>#}
+    {#                                    {{/is_creator }}#}
+    {#                                </div>#}
+    {#                            </div>#}
+    {#                            <hr class="mt-1 mb-2 d-block d-lg-none"/>#}
+    {#                        </div>#}
+    {#                        <div class="col-12 col-lg-8">#}
+    {#                            {{#each statements }}#}
+    {#                            <div class="row">#}
+    {#                                <div class="quote-author col-4 col-sm-2">#}
+    {#                                    {{ this.author.name }}#}
+    {#                                </div>#}
+    {#                                <div class="quote-statement col-8 col-sm-10 text-left">#}
+    {#                                    <span class="float-left">{{ this.text }}</span>#}
+    {#                                </div>#}
+    {#                            </div>#}
+    {#                            {{/each}}#}
+    {#                        </div>#}
+    {#                        <div class="col-lg-1">#}
+    {#                            <p>#}
+    {#                                {{#is_creator }}#}
+    {#                                <button onclick="deleteQuote('{{ delete_url }}')"#}
+    {#                                        class="btn btn-outline-danger trash text-right rounded-0 d-none d-lg-block m-auto"#}
+    {#                                ><i class="fas fa-trash"></i>#}
+    {#                                </button>#}
+    {#                                {{/is_creator }}#}
+    {#                        </div>#}
+    {#                    </div>#}
+    {#                </script>#}
+    {#                {% endraw %}#}
+    {#            </div>#}
+    {#        </div>#}
+    {#    </div>#}
+{% endblock %}

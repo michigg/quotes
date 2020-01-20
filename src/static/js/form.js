@@ -5,9 +5,11 @@
 // CONFIG
 const QUOTES_ENDPOINT = '/api/quote';
 const AUTHORS_ENDPOINT = '/api/author';
+const GIFS_ENDPOINT = '/gifs';
+const GIFS_FORMULAR = $("#gif-form");
 const QUOTE_FORMULAR = $('#quote-form');
 const QUOTE_FORMULAR_CONTENTS = document.getElementById('quote-form').innerHTML;
-const AUTHOR_FORMULAR = $("#author-form")
+const AUTHOR_FORMULAR = $("#author-form");
 
 let source = document.getElementById("entry-template").innerHTML;
 let template = Handlebars.compile(source);
@@ -104,6 +106,31 @@ function authorSuccessProcess(data) {
     updateAuthors();
     displaySuccessModal(data);
     AUTHOR_FORMULAR[0].reset();
+}
+
+GIFS_FORMULAR.submit(function (event) {
+    console.log("PREVENT");
+    event.preventDefault();
+    var url = GIFS_FORMULAR.attr('action');
+    $.ajax({
+        url: url,
+        type: 'post',
+        dataType: 'json',
+        data: GIFS_FORMULAR.serialize(),
+        success: gifSuccessProcess,
+        error: displayErrorModal,
+    })
+});
+
+function clearGIFFormular() {
+    GIFS_FORMULAR.empty();
+}
+
+function gifSuccessProcess(data) {
+    // TODO update gifs
+    // updateQuotes();
+    displaySuccessModal(data);
+    clearGIFFormular();
 }
 
 function updateQuotes() {

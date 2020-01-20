@@ -8,8 +8,8 @@ from django.http import JsonResponse
 from django.shortcuts import render
 
 from core.settings import STATICFILES_DIRS, STATIC_URL
-from fachschaftszitat.forms import QuoteForm, AuthorsForm, StatementFormset
-from fachschaftszitat.models import Quote, Author, Statement
+from fachschaftszitat.forms import QuoteForm, AuthorsForm, StatementFormset, GifForm
+from fachschaftszitat.models import Quote, Author, Statement, Gif
 
 import logging
 
@@ -57,7 +57,7 @@ def registration_quote(request):
                 pre_save.order_id = order_id
                 order_id += 1
                 pre_save.save()
-    #         logger.info("statements_savedee")
+            #         logger.info("statements_savedee")
             quote = quote_form.save(commit=False)
             quote.creator = request.user
             quote.save()
@@ -75,3 +75,18 @@ def registration_author(request):
             form.save()
             return JsonResponse({'url': get_random_sucess_url()}, status=201)
         return JsonResponse({'url': get_random_error_url()}, status=400)
+
+
+@login_required
+def registration_gif(request):
+    if request.method == 'POST':
+        form = GifForm(request.POST)
+        if form.is_valid():
+            gif = form.save(commit=False)
+            gif.creator = request.user
+            return JsonResponse({'url': get_random_sucess_url()}, status=201)
+        return JsonResponse({'url': get_random_error_url()}, status=400)
+    else:
+        gifs = Gif.objects.filter(creator=request.user)
+        form = GifForm()
+    return render(request, 'gif.jinja2', {"form": form, "gifs": gifs})
