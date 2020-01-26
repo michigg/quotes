@@ -17,13 +17,21 @@ logger = logging.getLogger(__name__)
 
 
 def get_random_sucess_url():
-    file = random.choice(os.listdir(os.path.join(STATICFILES_DIRS[0], 'images/success')))
-    return STATIC_URL + 'images/success/' + file
+    gifs = Gif.objects.filter(type=Gif.SUCCESS)
+    gif_urls = [gif.video_url for gif in gifs]
+    files = os.listdir(os.path.join(STATICFILES_DIRS[0], 'images/success'))
+    file_based_gif_urls = [f'{STATIC_URL}images/success/{file}' for file in files]
+    gif_urls.extend(file_based_gif_urls)
+    return random.choice(gif_urls)
 
 
 def get_random_error_url():
-    file = random.choice(os.listdir(os.path.join(STATICFILES_DIRS[0], 'images/oops')))
-    return STATIC_URL + 'images/oops/' + file
+    gifs = Gif.objects.filter(type=Gif.ERROR)
+    gif_urls = [gif.video_url for gif in gifs]
+    files = os.listdir(os.path.join(STATICFILES_DIRS[0], 'images/oops'))
+    file_based_gif_urls = [f'{STATIC_URL}images/oops/{file}' for file in files]
+    gif_urls.extend(file_based_gif_urls)
+    return random.choice(gif_urls)
 
 
 # Create your views here.
