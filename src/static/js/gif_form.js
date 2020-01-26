@@ -49,7 +49,6 @@ $.ajaxSetup({
 });
 
 GIFS_FORMULAR.submit(function (event) {
-    console.log("PREVENT");
     event.preventDefault();
     var url = GIFS_FORMULAR.attr('action');
     $.ajax({
@@ -63,7 +62,7 @@ GIFS_FORMULAR.submit(function (event) {
 });
 
 function clearGIFFormular() {
-    GIFS_FORMULAR.empty();
+    GIFS_FORMULAR[0].reset();
 }
 
 function gifSuccessProcess(data) {
