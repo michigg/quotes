@@ -3,11 +3,11 @@
  * http://stackoverflow.com/questions/5100539/django-csrf-check-failing-with-an-ajax-post-request
  */
 // CONFIG
-// const GIFS_ENDPOINT = '/gifs';
+const GIFS_ENDPOINT = '/api/gifs';
 const GIFS_FORMULAR = $("#gif-form");
 
-// let source = document.getElementById("entry-template").innerHTML;
-// let template = Handlebars.compile(source);
+let gifs_source = document.getElementById("gifs-template").innerHTML;
+let gifs_template = Handlebars.compile(gifs_source);
 
 /* jshint esversion: 6 */
 
@@ -70,4 +70,29 @@ function gifSuccessProcess(data) {
     // updateQuotes();
     displaySuccessModal(data);
     clearGIFFormular();
+}
+
+ready(function () {
+    console.log("Ready");
+    updateGifs();
+});
+
+function updateGifs() {
+    $.ajax({
+        url: GIFS_ENDPOINT,
+        type: 'get',
+        dataType: 'json',
+        success: resetGifs,
+        error: displayErrorModal,
+    })
+}
+
+function resetGifs(data) {
+    let gifs = $('#gifs-wrapper');
+    let html = '';
+    for (const context of data) {
+        html += gifs_template(context);
+    }
+    gifs.empty();
+    gifs.append(html)
 }
