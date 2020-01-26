@@ -53,7 +53,7 @@ class ApiRemoveQuote(generics.RetrieveUpdateDestroyAPIView):
 
 
 @permission_classes((IsAuthenticated,))
-class ApiGifs(generics.ListCreateAPIView):
+class ApiGifs(generics.ListAPIView):
     serializer_class = GifSerializer
 
     def get_queryset(self):
@@ -66,16 +66,6 @@ class ApiGifs(generics.ListCreateAPIView):
              "delete_url": reverse("fachschaftszitat.api:delete-gif", args=[gif.id])}
             for gif in gifs]
         return gifs_wrapper
-
-    def create(self, request, *args, **kwargs):
-        serializer = GifSerializer(data=request.data)
-        if serializer.is_valid():
-            # YOUR CODE HERE
-            if self.is_video_url_valid(serializer.video_url):
-                serializer.creator = request.user
-                serializer.save()
-                return Response(serializer.data, status=status.HTTP_201_CREATED)
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
 @permission_classes((IsAuthenticated,))
