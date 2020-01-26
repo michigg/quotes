@@ -8,8 +8,8 @@ from django.http import JsonResponse
 from django.shortcuts import render
 
 from core.settings import STATICFILES_DIRS, STATIC_URL
-from fachschaftszitat.forms import QuoteForm, AuthorsForm, StatementFormset
-from fachschaftszitat.models import Quote, Author, Statement
+from fachschaftszitat.forms import QuoteForm, AuthorsForm, StatementFormset, GifForm
+from fachschaftszitat.models import Quote, Author, Statement, Gif
 
 import logging
 
@@ -17,13 +17,21 @@ logger = logging.getLogger(__name__)
 
 
 def get_random_sucess_url():
-    file = random.choice(os.listdir(os.path.join(STATICFILES_DIRS[0], 'images/success')))
-    return STATIC_URL + 'images/success/' + file
+    gifs = Gif.objects.filter(type=Gif.SUCCESS)
+    gif_urls = [gif.video_url for gif in gifs]
+    files = os.listdir(os.path.join(STATICFILES_DIRS[0], 'images/success'))
+    file_based_gif_urls = [f'{STATIC_URL}images/success/{file}' for file in files]
+    gif_urls.extend(file_based_gif_urls)
+    return random.choice(gif_urls)
 
 
 def get_random_error_url():
-    file = random.choice(os.listdir(os.path.join(STATICFILES_DIRS[0], 'images/oops')))
-    return STATIC_URL + 'images/oops/' + file
+    gifs = Gif.objects.filter(type=Gif.ERROR)
+    gif_urls = [gif.video_url for gif in gifs]
+    files = os.listdir(os.path.join(STATICFILES_DIRS[0], 'images/oops'))
+    file_based_gif_urls = [f'{STATIC_URL}images/oops/{file}' for file in files]
+    gif_urls.extend(file_based_gif_urls)
+    return random.choice(gif_urls)
 
 
 # Create your views here.
@@ -46,7 +54,6 @@ def home(request):
 
 @login_required
 def registration_quote(request):
-    logger.error("call")
     if request.user.is_authenticated and request.method == 'POST':
         quote_form = QuoteForm(request.POST)
         statement_form = StatementFormset(request.POST)
@@ -57,7 +64,7 @@ def registration_quote(request):
                 pre_save.order_id = order_id
                 order_id += 1
                 pre_save.save()
-    #         logger.info("statements_savedee")
+            #         logger.info("statements_savedee")
             quote = quote_form.save(commit=False)
             quote.creator = request.user
             quote.save()
@@ -75,3 +82,29 @@ def registration_author(request):
             form.save()
             return JsonResponse({'url': get_random_sucess_url()}, status=201)
         return JsonResponse({'url': get_random_error_url()}, status=400)
+
+
+@login_required
+def registration_gif(request):
+    if request.method == 'POST':
+        form = GifForm(request.POST)
+        if form.is_valid():
+            gif = form.save(commit=False)
+            if is_video_url_valid(gif.video_url):
+                gif.creator = request.user
+                gif.save()
+                return JsonResponse({'url': get_random_sucess_url()}, status=201)
+        return JsonResponse({'url': get_random_error_url()}, status=400)
+    else:
+        gifs = Gif.objects.filter(creator=request.user)
+        form = GifForm()
+    return render(request, 'gif.jinja2', {"form": form, "gifs": gifs})
+
+
+def is_video_url_valid(url):
+    url_starts = ["https://media.giphy.com/media/", "https://media.tenor.com/videos/"]
+    url_ends = [".mp4", "/mp4"]
+    has_known_url_start = any([url.startswith(url_start) for url_start in url_starts])
+    has_known_url_end = any([url.endswith(url_end) for url_end in url_ends])
+
+    return has_known_url_start and has_known_url_end

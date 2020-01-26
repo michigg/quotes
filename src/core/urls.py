@@ -23,6 +23,7 @@ urlpatterns = [
     path('logout/', auth_views.LogoutView.as_view(), {'next_page': '/'}, name='logout'),
     path('admin/', admin.site.urls),
     path('', views.home, name="home"),
+    path('videos/', views.registration_gif, name='gifs'),
     path('quote-registration/', views.registration_quote, name="register_quote"),
     path('author-registration/', views.registration_author, name="register_author"),
     path('api/', include('fachschaftszitat.api.urls')),

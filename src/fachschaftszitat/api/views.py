@@ -4,8 +4,8 @@ from rest_framework.decorators import permission_classes
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 
-from fachschaftszitat.models import Quote, Author
-from .serializer import QuoteSerializer, AuthorSerializer
+from fachschaftszitat.models import Quote, Author, Gif
+from .serializer import QuoteSerializer, AuthorSerializer, GifSerializer
 
 
 @permission_classes((IsAuthenticated,))
@@ -41,10 +41,44 @@ class ApiRemoveQuote(generics.RetrieveUpdateDestroyAPIView):
     queryset = Quote.objects.all()
     serializer_class = QuoteSerializer
 
+    def get_queryset(self):
+        return Quote.objects.filter(creator=self.request.user)
+
     def destroy(self, request, *args, **kwargs):
         instance = self.get_object()
         if instance.creator.id != self.request.user.id:
             return Response("Wrong user. Cannot delete Quote, because you are not the creator.",
+                            status=status.HTTP_400_BAD_REQUEST)
+        return super().destroy(request, *args, **kwargs)
+
+
+@permission_classes((IsAuthenticated,))
+class ApiGifs(generics.ListAPIView):
+    serializer_class = GifSerializer
+
+    def get_queryset(self):
+        gifs = Gif.objects.filter(creator=self.request.user)
+        gifs_wrapper = [
+            {"id": gif.id,
+             "video_url": gif.video_url,
+             "type": gif.type,
+             "is_creator": gif.creator.id == self.request.user.id,
+             "delete_url": reverse("fachschaftszitat.api:delete-gif", args=[gif.id])}
+            for gif in gifs]
+        return gifs_wrapper
+
+
+@permission_classes((IsAuthenticated,))
+class ApiGif(generics.DestroyAPIView):
+    serializer_class = GifSerializer
+
+    def get_queryset(self):
+        return Gif.objects.filter(creator=self.request.user)
+
+    def destroy(self, request, *args, **kwargs):
+        instance = self.get_object()
+        if instance.creator.id != self.request.user.id:
+            return Response("Wrong user. Cannot delete Gif, because you are not the creator.",
                             status=status.HTTP_400_BAD_REQUEST)
         return super().destroy(request, *args, **kwargs)
 

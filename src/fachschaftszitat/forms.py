@@ -1,5 +1,5 @@
 from django import forms
-from fachschaftszitat.models import Statement, Quote, Author
+from fachschaftszitat.models import Statement, Quote, Author, Gif
 from django.forms import modelformset_factory
 import datetime
 
@@ -29,3 +29,9 @@ class AuthorsForm(forms.ModelForm):
     class Meta:
         model = Author
         fields = ['name']
+
+
+class GifForm(forms.ModelForm):
+    class Meta:
+        model = Gif
+        fields = ['type', 'video_url']

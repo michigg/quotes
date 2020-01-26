@@ -13,7 +13,7 @@ footer {
     bottom: 0;
     vertical-align: middle;
     height: var(--footer-height-y);
-    line-height: 40px;
+    line-height: 25px;
 }
 
 footer a:link,
@@ -75,7 +75,7 @@ footer a:active {
 :root {
     --input-padding-x: .75rem;
     --input-padding-y: .6rem;
-    --footer-height-y: 40px
+    --footer-height-y: 60px
 }
 
 
@@ -164,4 +164,14 @@ footer a:active {
     box-shadow: 0 2px 4px rgba(0, 0, 0, .6);
     padding: 5px 5px;
     margin-bottom: 5px;
+}
+
+
+/** **************************************************************************************************************** **/
+/** ********                                       GIFS                                                     ******** **/
+/** **************************************************************************************************************** **/
+.gif-type{
+    position: absolute;
+    bottom: 0;
+    right: 15px;
 }

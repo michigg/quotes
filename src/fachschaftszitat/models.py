@@ -47,3 +47,16 @@ class Author(models.Model):
 
     def __str__(self):
         return self.name
+
+
+class Gif(models.Model):
+    ERROR = "ERROR"
+    SUCCESS = "SUCCESS"
+    TYPE_CHOICES = [(ERROR, "Error"), (SUCCESS, "Success")]
+
+    type = models.CharField(max_length=8, choices=TYPE_CHOICES)
+    video_url = models.URLField(unique=True)
+    creator = models.ForeignKey(User, on_delete=models.PROTECT)
+
+    def __str__(self):
+        return f'{self.id} - {self.type} - {self.creator} - {self.video_url}'

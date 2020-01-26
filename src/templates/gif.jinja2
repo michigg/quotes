@@ -1,0 +1,59 @@
+{% extends 'base.jinja2' %}
+{% import 'macros/util_macros.jinja2' as mutils %}
+
+{% block content %}
+    <div class="row mt-2 justify-content-center">
+        <div class="col-12 col-md-8 col-lg-7 col-xl-6 bg-white mb-2">
+            <div class="card px-4 py-3">
+                <h1>Info</h1>
+                <p>Neue gifs können von den folgenden Seiten hinzugefügt werden:</p>
+                <ul>
+                    <li><a href="https://giphy.com">https://giphy.com</a>/</li>
+                    <li><a href="https://tenor.com/">https://tenor.com/</a></li>
+                </ul>
+                <p>Bitte beachtet, dass nur mp4 videos akzeptiert werden können. Deshalb ist es bei Tenor nötig auf MP4
+                    umzustellen, bevor man die Video Url kopiert. Dies geht am leichtesten mit einem Rechtsklick und der
+                    anschließenden Auswahl von "Grafikadresse kopieren".<br/>Nutzt bei giphy die Media sharing Funktion auf der rechten Seite, um an
+                    den mp4 link zu gelangen.</p>
+            </div>
+        </div>
+    </div>
+    <div class="row mt-2 justify-content-center">
+        <div class="col-12 col-md-8 col-lg-7 col-xl-6 bg-white mb-2">
+            <div class="card h-100 px-4 py-3">
+                <h2 class="mb-3 h3">Neues Gif hinzufügen</h2>
+                {{ mutils.get_gif_add_form(form) }}
+            </div>
+        </div>
+    </div>
+    <div class="row mt-2 justify-content-center">
+        <div class="col-12 col-md-8 col-lg-7 col-xl-6 bg-white mb-2">
+            <div id="gifs-wrapper" class="row">
+                {% raw %}
+                <script id="gifs-template" type="text/x-handlebars-template">
+                    <div class="col-12 bg-white mb-2">
+                        <div class="card h-100">
+                            <div class="row">
+                                <div class="col-9">
+                                    <video src="{{ video_url }}" loop autoplay muted class="w-100"></video>
+                                </div>
+                                <div class="col-3 h-100">
+                                    <button onclick="deleteGif('{{ delete_url }}')"
+                                            class="btn btn-outline-danger rounded-0 trash float-right"
+                                    ><i class="fas fa-trash"></i>
+                                    </button>
+                                    <div class="gif-type">{{ type }}</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </script>
+                {% endraw %}
+            </div>
+        </div>
+    </div>
+
+    {% block js_extra_footer %}
+        <script src="{{ static('js/gif.js') }}"></script>
+    {% endblock %}
+{% endblock %}

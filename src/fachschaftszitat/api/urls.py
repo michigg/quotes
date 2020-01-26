@@ -7,4 +7,6 @@ urlpatterns = [
     path('quote/', views.ApiGetQuotes.as_view(), name='quotes'),
     path('quote/<int:pk>/', views.ApiRemoveQuote.as_view(), name='delete-quote'),
     path('author/', views.ApiGetAuthors.as_view(), name='authors'),
+    path('gif/', views.ApiGifs.as_view(), name='gifs'),
+    path('gif/<int:pk>/', views.ApiGif.as_view(), name='delete-gif'),
 ]

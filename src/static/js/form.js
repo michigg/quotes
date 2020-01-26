@@ -7,7 +7,7 @@ const QUOTES_ENDPOINT = '/api/quote';
 const AUTHORS_ENDPOINT = '/api/author';
 const QUOTE_FORMULAR = $('#quote-form');
 const QUOTE_FORMULAR_CONTENTS = document.getElementById('quote-form').innerHTML;
-const AUTHOR_FORMULAR = $("#author-form")
+const AUTHOR_FORMULAR = $("#author-form");
 
 let source = document.getElementById("entry-template").innerHTML;
 let template = Handlebars.compile(source);
@@ -105,6 +105,7 @@ function authorSuccessProcess(data) {
     displaySuccessModal(data);
     AUTHOR_FORMULAR[0].reset();
 }
+
 
 function updateQuotes() {
     $.ajax({
