@@ -54,7 +54,6 @@ def home(request):
 
 @login_required
 def registration_quote(request):
-    logger.error("call")
     if request.user.is_authenticated and request.method == 'POST':
         quote_form = QuoteForm(request.POST)
         statement_form = StatementFormset(request.POST)
@@ -107,7 +106,5 @@ def is_video_url_valid(url):
     url_ends = [".mp4", "/mp4"]
     has_known_url_start = any([url.startswith(url_start) for url_start in url_starts])
     has_known_url_end = any([url.endswith(url_end) for url_end in url_ends])
-    logger.error(has_known_url_end)
-    logger.error(has_known_url_start)
 
     return has_known_url_start and has_known_url_end
