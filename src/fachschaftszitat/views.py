@@ -83,11 +83,23 @@ def registration_gif(request):
         form = GifForm(request.POST)
         if form.is_valid():
             gif = form.save(commit=False)
-            gif.creator = request.user
-            gif.save()
-            return JsonResponse({'url': get_random_sucess_url()}, status=201)
+            if is_video_url_valid(gif.video_url):
+                gif.creator = request.user
+                gif.save()
+                return JsonResponse({'url': get_random_sucess_url()}, status=201)
         return JsonResponse({'url': get_random_error_url()}, status=400)
     else:
         gifs = Gif.objects.filter(creator=request.user)
         form = GifForm()
     return render(request, 'gif.jinja2', {"form": form, "gifs": gifs})
+
+
+def is_video_url_valid(url):
+    url_starts = ["https://media.giphy.com/media/", "https://media.tenor.com/videos/"]
+    url_ends = [".mp4", "/mp4"]
+    has_known_url_start = any([url.startswith(url_start) for url_start in url_starts])
+    has_known_url_end = any([url.endswith(url_end) for url_end in url_ends])
+    logger.error(has_known_url_end)
+    logger.error(has_known_url_start)
+
+    return has_known_url_start and has_known_url_end

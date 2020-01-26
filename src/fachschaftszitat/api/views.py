@@ -71,9 +71,10 @@ class ApiGifs(generics.ListCreateAPIView):
         serializer = GifSerializer(data=request.data)
         if serializer.is_valid():
             # YOUR CODE HERE
-            serializer.creator = request.user
-            serializer.save()
-            return Response(serializer.data, status=status.HTTP_201_CREATED)
+            if self.is_video_url_valid(serializer.video_url):
+                serializer.creator = request.user
+                serializer.save()
+                return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
