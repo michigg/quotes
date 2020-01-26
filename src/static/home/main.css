@@ -165,3 +165,17 @@ footer a:active {
     padding: 5px 5px;
     margin-bottom: 5px;
 }
+
+.gif-type{
+    position: absolute;
+    bottom: 0;
+    right: 15px;
+}
+
+.gif-success-bg {
+
+}
+
+.gif-error-bg {
+
+}
