@@ -72,42 +72,6 @@
             </div>
         </div>
     </div>
-    <!-- The Modal -->
-    <div class="modal" id="successModal">
-        <div class="modal-dialog modal-xl">
-            <div class="modal-content rounded-0" role="document">
 
-                <!-- Modal Header -->
-                <div class="modal-header text-dark">
-                    <h4 class="modal-title text-dark">Krass! <span class="text-success">Success</span>
-                        <p class="text-dark">Das Formular wurde erfolgreich gespeichert!</p></h4>
-                    <button type="button" class="close" data-dismiss="modal"><i class="fas fa-times" style="font-size: 2rem"></i></button>
-                </div>
-
-                <!-- Modal body -->
-                <video id="successGif" class="modal-body" src="{{ static('images/success/dumbledore.mp4') }}" loop
-                       autoplay muted
-                       width="100%"></video>
-            </div>
-        </div>
-    </div>
-    <div class="modal" id="failModal">
-        <div class="modal-dialog modal-xl">
-        <div class="modal-content rounded-0" role="document">
-
-            <!-- Modal Header -->
-            <div class="modal-header text-dark">
-                <h4 class="modal-title text-dark">Fuck! <span class="text-danger">Error!</span>
-                    <span class="text-dark">Sorry Dude!</span>
-                </h4>
-
-                <button type="button" class="close" data-dismiss="modal"><i class="fas fa-times" style="font-size: 2rem"></i></button>
-            </div>
-
-            <!-- Modal body -->
-            <video id="failGif" class="modal-body" src="{{ static('/images/oops/oops.mp4') }}" loop autoplay muted
-                   width="100%"></video>
-        </div>
-    </div>
     </div>
 {% endblock %}

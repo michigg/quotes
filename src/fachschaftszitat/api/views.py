@@ -4,8 +4,8 @@ from rest_framework.decorators import permission_classes
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 
-from fachschaftszitat.models import Quote, Author
-from .serializer import QuoteSerializer, AuthorSerializer
+from fachschaftszitat.models import Quote, Author, Gif
+from .serializer import QuoteSerializer, AuthorSerializer, GifSerializer
 
 
 @permission_classes((IsAuthenticated,))
@@ -48,6 +48,37 @@ class ApiRemoveQuote(generics.RetrieveUpdateDestroyAPIView):
                             status=status.HTTP_400_BAD_REQUEST)
         return super().destroy(request, *args, **kwargs)
 
+
+@permission_classes((IsAuthenticated,))
+class ApiGifs(generics.ListCreateAPIView):
+    serializer_class = GifSerializer
+
+    def get_queryset(self):
+        return Gif.objects.filter(creator=self.request.user)
+
+    def create(self, request, *args, **kwargs):
+        serializer = GifSerializer(data=request.data)
+        if serializer.is_valid():
+            # YOUR CODE HERE
+            serializer.creator = request.user
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+# def registration_gif(request):
+#     if request.method == 'POST':
+#         form = GifForm(request.POST)
+#         if form.is_valid():
+#             gif = form.save(commit=False)
+#             gif.creator = request.user
+#             gif.save()
+#             return JsonResponse({'url': get_random_sucess_url()}, status=201)
+#         return JsonResponse({'url': get_random_error_url()}, status=400)
+#     else:
+#         gifs = Gif.objects.filter(creator=request.user)
+#         form = GifForm()
+#     return render(request, 'gif.jinja2', {"form": form, "gifs": gifs})
 
 class ApiGetAuthors(generics.ListAPIView):
     queryset = Author.objects.all()
