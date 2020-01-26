@@ -94,12 +94,13 @@
         </div>
     </div>
 
-    <footer class="bg-dark text-white text-center">
-    <span class="ml-2">© Copyright 2020, Michael Götz
-        (<a href="#">Impressum</a>,
-        <a href="#">Datenschutz</a>)</span>
-        {#    TODO: Fix hidden on small devices#}
-        <span class="float-right mr-2">Version: {{ version }}</span>
+    <footer class="bg-dark text-white text-center fixed-bottom">
+        <p class="mb-0">© Copyright 2020, Michael Götz
+            (<a href="#">Impressum</a>,
+            <a href="#">Datenschutz</a>)</p>
+        <p class="mb-0"><a href="https://github.com/michigg/quotes/issues" target="_blank">
+            <i class="fab fa-github"></i> Problem melden</a><span
+                class="ml-2">Version: {{ version }}</span></p>
 </div>
 </footer>
 
