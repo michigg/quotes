@@ -1,22 +1,3 @@
-function ready(fn) {
-    if (document.attachEvent ? document.readyState === "complete" : document.readyState !== "loading") {
-        fn();
-    } else {
-        document.addEventListener("DOMContentLoaded", fn);
-    }
-}
-
-ready(function () {
-    initTrash();
-});
-
-function initTrash() {
-    const trashs = document.getElementsByClassName("trash");
-    for (const trash in trashs) {
-        trash.addE
-    }
-}
-
 function confirm_delete() {
     return confirm("Möchtest du das Zitat wirklich löschen?");
 }
@@ -40,5 +21,4 @@ function deleteQuote(url) {
             error: displayErrorModal,
         })
     }
-
 }

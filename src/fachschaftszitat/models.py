@@ -59,4 +59,4 @@ class Gif(models.Model):
     creator = models.ForeignKey(User, on_delete=models.PROTECT)
 
     def __str__(self):
-        return f'{self.type} - {self.creator} - {self.video_url}'
+        return f'{self.id} - {self.type} - {self.creator} - {self.video_url}'

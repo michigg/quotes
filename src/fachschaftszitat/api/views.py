@@ -41,6 +41,9 @@ class ApiRemoveQuote(generics.RetrieveUpdateDestroyAPIView):
     queryset = Quote.objects.all()
     serializer_class = QuoteSerializer
 
+    def get_queryset(self):
+        return Quote.objects.filter(creator=self.request.user)
+
     def destroy(self, request, *args, **kwargs):
         instance = self.get_object()
         if instance.creator.id != self.request.user.id:
@@ -54,7 +57,15 @@ class ApiGifs(generics.ListCreateAPIView):
     serializer_class = GifSerializer
 
     def get_queryset(self):
-        return Gif.objects.filter(creator=self.request.user)
+        gifs = Gif.objects.filter(creator=self.request.user)
+        gifs_wrapper = [
+            {"id": gif.id,
+             "video_url": gif.video_url,
+             "type": gif.type,
+             "is_creator": gif.creator.id == self.request.user.id,
+             "delete_url": reverse("fachschaftszitat.api:delete-gif", args=[gif.id])}
+            for gif in gifs]
+        return gifs_wrapper
 
     def create(self, request, *args, **kwargs):
         serializer = GifSerializer(data=request.data)
@@ -66,19 +77,20 @@ class ApiGifs(generics.ListCreateAPIView):
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
-# def registration_gif(request):
-#     if request.method == 'POST':
-#         form = GifForm(request.POST)
-#         if form.is_valid():
-#             gif = form.save(commit=False)
-#             gif.creator = request.user
-#             gif.save()
-#             return JsonResponse({'url': get_random_sucess_url()}, status=201)
-#         return JsonResponse({'url': get_random_error_url()}, status=400)
-#     else:
-#         gifs = Gif.objects.filter(creator=request.user)
-#         form = GifForm()
-#     return render(request, 'gif.jinja2', {"form": form, "gifs": gifs})
+@permission_classes((IsAuthenticated,))
+class ApiGif(generics.DestroyAPIView):
+    serializer_class = GifSerializer
+
+    def get_queryset(self):
+        return Gif.objects.filter(creator=self.request.user)
+
+    def destroy(self, request, *args, **kwargs):
+        instance = self.get_object()
+        if instance.creator.id != self.request.user.id:
+            return Response("Wrong user. Cannot delete Gif, because you are not the creator.",
+                            status=status.HTTP_400_BAD_REQUEST)
+        return super().destroy(request, *args, **kwargs)
+
 
 class ApiGetAuthors(generics.ListAPIView):
     queryset = Author.objects.all()

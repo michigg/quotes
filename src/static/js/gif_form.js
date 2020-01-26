@@ -3,7 +3,7 @@
  * http://stackoverflow.com/questions/5100539/django-csrf-check-failing-with-an-ajax-post-request
  */
 // CONFIG
-const GIFS_ENDPOINT = '/api/gifs';
+const GIFS_ENDPOINT = '/api/gif/';
 const GIFS_FORMULAR = $("#gif-form");
 
 let gifs_source = document.getElementById("gifs-template").innerHTML;
@@ -66,8 +66,7 @@ function clearGIFFormular() {
 }
 
 function gifSuccessProcess(data) {
-    // TODO update gifs
-    // updateQuotes();
+    updateGifs();
     displaySuccessModal(data);
     clearGIFFormular();
 }
@@ -95,4 +94,29 @@ function resetGifs(data) {
     }
     gifs.empty();
     gifs.append(html)
+}
+
+function confirm_gif_delete() {
+    return confirm("Möchtest du das GIF wirklich löschen?");
+}
+
+function resetGifAndDisplaySuccess() {
+    updateGifs();
+    displaySuccessModal();
+}
+
+
+function deleteGif(url) {
+    const is_confirmed = confirm_gif_delete();
+    if (is_confirmed) {
+        console.log(url);
+        $.ajax({
+            url: url,
+            type: 'delete',
+            dataType: 'json',
+            data: {},
+            success: resetGifAndDisplaySuccess,
+            error: displayErrorModal,
+        })
+    }
 }

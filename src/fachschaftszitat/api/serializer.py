@@ -42,7 +42,8 @@ class GifSerializer(serializers.Serializer):
     id = serializers.IntegerField(read_only=True)
     type = serializers.ChoiceField(choices=Gif.TYPE_CHOICES)
     video_url = serializers.URLField()
-    creator = UserSerializer(read_only=True)
+    is_creator = serializers.BooleanField()
+    delete_url = serializers.CharField()
 
     def create(self, validated_data):
         return Gif.objects.create(**validated_data)
