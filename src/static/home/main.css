@@ -61,6 +61,19 @@ a:hover {
     border-color: var(--primary-color);
 }
 
+.btn-primary {
+    background-color: var(--primary-color);
+    border-color: var(--primary-color);
+}
+
+.btn-primary:hover {
+    background-color: var(--primary-color);
+    border-color: var(--primary-color);
+    color: #fff;
+    box-shadow: 0 0 0 .2rem var(--primary-color);
+}
+
+
 .bg-light {
     background-color: var(--background-color) !important;
 }
