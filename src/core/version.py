@@ -1,1 +1,1 @@
-VERSION_TAG = "1.4.2"
+VERSION_TAG = "1.4.3"
