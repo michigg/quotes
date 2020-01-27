@@ -1,4 +1,4 @@
-{% macro text_input(field, list='', css_classes='') -%}
+{% macro text_input(field, list='', css_classes='', placeholder='') -%}
     <div class="form-group">
         <input type="text"
                 {% if css_classes %}
@@ -6,7 +6,11 @@
                 {% else %}
                class="form-control"
                 {% endif %}
+                {% if placeholder %}
+               placeholder="{{ placeholder }}"
+                {% else %}
                placeholder="{{ field.label }}"
+                {% endif %}
                 {% if list %}
                list="{{ list }}"
                 {% endif %}
@@ -36,7 +40,7 @@
     </div>
 {% endmacro %}
 
-{% macro password_input(field, list='', css_classes='') -%}
+{% macro password_input(field, list='', css_classes='', placeholder='') -%}
     {% if field.help_text %}
         <br/>
     {% endif %}
@@ -47,7 +51,11 @@
                 {% else %}
                class="form-control"
                 {% endif %}
+                {% if placeholder %}
+               placeholder="{{ placeholder }}"
+                {% else %}
                placeholder="{{ field.label }}"
+                {% endif %}
                 {% if list %}
                list="{{ list }}"
                 {% endif %}
