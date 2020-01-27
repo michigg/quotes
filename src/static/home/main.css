@@ -8,7 +8,7 @@
     --success-color: #28a745;
 }
 
-@media (prefers-color-scheme: dark) {
+@media (prefers-color-scheme: light) {
     :root {
         --background-color: #ffffff;
         --page-background: #e2e2e2;
@@ -18,7 +18,7 @@
     }
 }
 
-@media (prefers-color-scheme: light) {
+@media (prefers-color-scheme: dark) {
     :root {
         --background-color: #222831;
         --page-background: #393e46;
