@@ -6,25 +6,25 @@
 
     --danger-color: #dc3545;
     --success-color: #28a745;
-
-
 }
 
-@media (prefers-color-scheme: light) {
+@media (prefers-color-scheme: dark) {
     :root {
         --background-color: #ffffff;
         --page-background: #e2e2e2;
         --primary-color: #007bff;
         --text-color: #343a40;
+        --shadow-color: #737a80;
     }
 }
 
-@media (prefers-color-scheme: dark) {
+@media (prefers-color-scheme: light) {
     :root {
         --background-color: #222831;
         --page-background: #393e46;
         --primary-color: #b55400;
         --text-color: #eeeeee;
+        --shadow-color: #000000;
     }
 }
 
@@ -33,6 +33,26 @@
 /** **************************************************************************************************************** **/
 html {
     min-height: 100vh;
+}
+
+a {
+    color: var(--primary-color);
+}
+
+a:hover {
+    color: var(--primary-color);
+}
+
+.btn-outline-primary{
+    color: var(--primary-color);
+    border-color: var(--primary-color);
+}
+
+
+.btn-outline-primary:hover {
+    color: #fff;
+    background-color: var(--primary-color);
+    border-color: var(--primary-color);
 }
 
 .bg-light {
@@ -49,11 +69,14 @@ body {
 }
 
 .card {
-    box-shadow: 1px 1px 4px rgba(0, 0, 0, .6);
     padding: 5px 5px;
     margin-bottom: 5px;
     border-radius: 0;
     background-color: var(--background-color);
+}
+
+.shadow {
+    box-shadow: 0 .2rem .4rem var(--shadow-color) !important;
 }
 
 .modal-header {
@@ -97,7 +120,6 @@ body {
 }
 
 .quote {
-    box-shadow: 1px 1px 4px rgba(0, 0, 0, .6);
     padding: 5px 5px;
     margin-bottom: 5px;
     margin-left: 1px;
@@ -173,6 +195,7 @@ label {
     width: 100%;
     color: var(--text-color)
 }
+
 .form-control, .custom-select, .form-control:focus {
     background-color: var(--page-background);
     color: var(--text-color);
@@ -194,7 +217,6 @@ label {
 /** ********                                       NAVBAR                                                   ******** **/
 /** **************************************************************************************************************** **/
 .navbar {
-    box-shadow: 0 2px 4px rgba(0, 0, 0, .6);
     padding: 5px 5px;
     margin-bottom: 5px;
 }

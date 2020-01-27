@@ -4,13 +4,13 @@
 {% block content %}
     <div class="row mt-2 justify-content-center">
         <div class="col-12 col-md-8 col-lg-7 col-xl-6 mb-2">
-            <div class="card h-100 px-4 py-3">
+            <div class="card shadow h-100 px-4 py-3">
                 <h2 class="mb-3 h3">Neues Zitat hinzufügen</h2>
                 {{ mutils.get_quote_add_form(statement_formset, user_groups, today_date, authors) }}
             </div>
         </div>
         <div class="col-12 col-md-4 col-lg-4 col-xl-3 mb-2">
-            <div class="card h-100 px-4 py-3">
+            <div class="card shadow h-100 px-4 py-3">
                 <h2 class="mb-3 h3">Neuen Autor hinzufügen</h2>
                 {{ mutils.get_author_add_form() }}
             </div>
@@ -27,7 +27,7 @@
             <div id="quotes-wrapper">
                 {% raw %}
                 <script id="entry-template" type="text/x-handlebars-template">
-                    <div class="quote row">
+                    <div class="quote shadow row">
                         <div class="quote-timestamp col-12 col-lg-3">
                             <div class="row">
                                 <div class="col-5 col-lg-8">
