@@ -39,7 +39,7 @@
     <a class="navbar-brand" href="{{ url('home') }}">
         <img src="{{ static('images/logo.png') }}" width="30" height="30"
              class="d-inline-block align-top" alt="Zitate App Logo">
-        {{ site_name }}
+        {{ site_name_jinja }}
     </a>
     <div>
         {% if request.user.is_authenticated %}

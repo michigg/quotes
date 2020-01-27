@@ -12,7 +12,7 @@ def environment(**options):
     env.globals.update({
         'static': static,
         'url': reverse,
-        'site_name': settings.SITE_NAME,
+        'site_name_jinja': settings.SITE_NAME,
         'version': VERSION_TAG
     })
     return env
