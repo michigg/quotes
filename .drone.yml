@@ -11,7 +11,7 @@ steps:
   image: alpine/git
   commands:
   - git fetch --tags
- 
+
 - name: build
   privileged: true
   image: docker/compose:1.24.1
@@ -51,7 +51,7 @@ steps:
     sonar_token:
       from_secret: sonar_token
     depends_on:
-    - fetch
+    - build
 
 - name: publish_dockerhub
   image: plugins/docker
@@ -91,7 +91,7 @@ steps:
   - build
 #  - set_versiontag
 #  - test
-    
+
 - name: send telegram notification
   image: appleboy/drone-telegram
   when:
