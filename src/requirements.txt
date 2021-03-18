@@ -1,4 +1,4 @@
-Django==3.0.3
+Django==3.1.6
 django-jinja==2.4.1
 Jinja2==2.10.3
 djangorestframework==3.11.0
