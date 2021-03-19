@@ -1,5 +1,5 @@
 Django==3.0.3
 django-jinja==2.4.1
 Jinja2==2.10.3
-djangorestframework==3.11.0
+djangorestframework==3.11.2
 django-auth-ldap==2.1.0
